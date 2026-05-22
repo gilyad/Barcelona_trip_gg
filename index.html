@@ -411,14 +411,28 @@ footer p { margin: 0.15rem 0; }
 
 <script>
 (function() {
-  const cruiseRoute = [
-    { name: 'ברצלונה',  pos: { lat: 41.3851, lng: 2.1734 },  country: '🇪🇸' },
-    { name: 'פלמה דה מיורקה', pos: { lat: 39.5696, lng: 2.6502 },  country: '🇪🇸' },
-    { name: 'מרסיי',   pos: { lat: 43.2965, lng: 5.3698 },  country: '🇫🇷' },
-    { name: 'לה ספציה', pos: { lat: 44.1025, lng: 9.8241 },  country: '🇮🇹' },
-    { name: 'רומא / צ׳יוויטווקיה', pos: { lat: 42.0932, lng: 11.7957 }, country: '🇮🇹' },
-    { name: 'נאפולי',  pos: { lat: 40.8518, lng: 14.2681 }, country: '🇮🇹' },
-    { name: 'ברצלונה (חזרה)', pos: { lat: 41.3851, lng: 2.1734 },  country: '🇪🇸' }
+  var cruiseRoute = [
+    { name: 'ברצלונה', city: 'Barcelona', pos: { lat: 41.3851, lng: 2.1734 }, country: '🇪🇸',
+      img: 'https://images.unsplash.com/photo-1583779457094-ab6f916fac6b?w=300&q=80',
+      attr: 'Sagrada Família' },
+    { name: 'פלמה דה מיורקה', city: 'Palma de Mallorca', pos: { lat: 39.5696, lng: 2.6502 }, country: '🇪🇸',
+      img: 'https://images.unsplash.com/photo-1590080877188-65d3f5cda2a6?w=300&q=80',
+      attr: 'Palma Cathedral' },
+    { name: 'מרסיי', city: 'Marseille', pos: { lat: 43.2965, lng: 5.3698 }, country: '🇫🇷',
+      img: 'https://images.unsplash.com/photo-1599501887769-a7a6e1d51805?w=300&q=80',
+      attr: 'Notre-Dame de la Garde' },
+    { name: 'לה ספציה', city: 'La Spezia', pos: { lat: 44.1025, lng: 9.8241 }, country: '🇮🇹',
+      img: 'https://images.unsplash.com/photo-1534519270891-5c685bcead72?w=300&q=80',
+      attr: 'Cinque Terre' },
+    { name: 'רומא', city: 'Rome', pos: { lat: 42.0932, lng: 11.7957 }, country: '🇮🇹',
+      img: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=300&q=80',
+      attr: 'Colosseum' },
+    { name: 'נאפולי', city: 'Naples', pos: { lat: 40.8518, lng: 14.2681 }, country: '🇮🇹',
+      img: 'https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?w=300&q=80',
+      attr: 'Vesuvius & Amalfi' },
+    { name: 'ברצלונה (חזרה)', city: 'Barcelona Return', pos: { lat: 41.3851, lng: 2.1734 }, country: '🇪🇸',
+      img: 'https://images.unsplash.com/photo-1583422409516-2895a77efded?w=300&q=80',
+      attr: 'Park Güell' }
   ];
 
   window.initCruiseMap = function() {
@@ -427,27 +441,48 @@ footer p { margin: 0.15rem 0; }
     var map = new google.maps.Map(mapEl, {
       zoom: 5,
       center: { lat: 41.5, lng: 8 },
-      mapTypeId: 'terrain'
+      mapTypeId: 'terrain',
+      styles: [
+        { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#c8e6f5' }] },
+        { featureType: 'landscape', elementType: 'geometry', stylers: [{ color: '#f5f0e8' }] }
+      ]
     });
     var pathCoords = [];
+    var infoWindow = new google.maps.InfoWindow({ maxWidth: 260 });
     cruiseRoute.forEach(function(stop, i) {
       pathCoords.push(stop.pos);
-      var m = new google.maps.Marker({
+      var marker = new google.maps.Marker({
         position: stop.pos, map: map, title: stop.name,
-        label: String(i + 1),
+        label: { text: String(i + 1), color: '#fff', fontWeight: 'bold' },
+        icon: {
+          path: google.maps.SymbolPath.CIRCLE,
+          fillColor: i === 0 ? '#e67e22' : '#1a73e8',
+          fillOpacity: 1, strokeColor: '#fff', strokeWeight: 2,
+          scale: 10
+        },
         animation: google.maps.Animation.DROP
       });
-      m.addListener('click', function() {
-        new google.maps.InfoWindow({
-          content: '<div><strong>' + stop.country + ' ' + stop.name + '</strong><br>עצירה №' + (i + 1) + '</div>'
-        }).open(map, m);
-      });
+      marker.addListener('click', (function(m, s) {
+        return function() {
+          infoWindow.setContent(
+            '<div style="font-family:sans-serif;max-width:240px;">' +
+            '<img src="' + s.img + '" style="width:100%;height:120px;object-fit:cover;border-radius:6px;margin-bottom:6px" ' +
+            'onerror="this.style.display=\'none\'">' +
+            '<strong style="font-size:14px">' + s.country + ' ' + s.name + '</strong><br>' +
+            '<span style="font-size:11px;color:#666">' + s.attr + '</span><br>' +
+            '<span style="font-size:11px;color:#999">עצירה №' + (i + 1) + '</span>' +
+            '</div>'
+          );
+          infoWindow.open(map, m);
+        };
+      })(marker, stop));
     });
     new google.maps.Polyline({
       path: pathCoords, geodesic: true,
-      strokeColor: '#58a6ff', strokeOpacity: 1.0, strokeWeight: 4
+      strokeColor: '#1a73e8', strokeOpacity: 0.9, strokeWeight: 4
     }).setMap(map);
-    document.getElementById('gmApiNote').style.display = 'none';
+    var note = document.getElementById('gmApiNote');
+    if (note) note.style.display = 'none';
   };
 })();
 </script>
