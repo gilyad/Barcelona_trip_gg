@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Барселона & Круиз — Сентябрь 2026</title>
+<title>ברצלונה והקרוז — משפחת גיליאדוב | Барселона & Круиз | Barcelona & Cruise</title>
 <style>
 :root {
   --bg: #0d1117;
@@ -12,337 +12,522 @@
   --text: #e6edf3;
   --muted: #8b949e;
   --accent: #58a6ff;
+  --gold: #d2991d;
   --green: #3fb950;
-  --orange: #d2991d;
   --red: #f78166;
   --purple: #a371f7;
+  --hero-bg: linear-gradient(135deg, #0d1117 0%, #1a2332 40%, #0d1b2a 100%);
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
+  transition: direction 0.2s;
 }
-header {
+
+/* Language Switcher */
+.lang-bar {
   background: var(--surface);
   border-bottom: 1px solid var(--border);
-  padding: 1rem 1.5rem;
-  position: sticky; top: 0; z-index: 100;
+  padding: 0.5rem 1.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.25rem;
+  position: sticky; top: 0; z-index: 200;
 }
-header h1 { font-size: 1.4rem; color: var(--accent); }
-header p { font-size: 0.85rem; color: var(--muted); margin-top: 0.2rem; }
+.lang-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 500;
+  transition: all 0.15s;
+}
+.lang-btn:hover { color: var(--text); border-color: var(--accent); }
+.lang-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* Hero */
+.hero {
+  position: relative;
+  background: var(--hero-bg);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.35;
+}
+.hero-overlay {
+  position: relative; z-index: 2;
+  text-align: center;
+  padding: 2rem;
+}
+.hero h1 { font-size: 2.2rem; color: #fff; margin-bottom: 0.5rem; font-weight: 800; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+.hero p { font-size: 1rem; color: var(--muted); }
+.hero .dates { font-size: 0.88rem; color: var(--gold); margin-top: 0.5rem; }
+.hero .ship-icon { font-size: 3rem; margin-bottom: 0.5rem; }
+
+/* Navigation */
 nav {
   background: var(--surface);
   border-bottom: 1px solid var(--border);
   padding: 0 1.5rem;
   overflow-x: auto;
   white-space: nowrap;
+  position: sticky; top: 48px; z-index: 100;
 }
 nav a {
   display: inline-block;
   color: var(--muted);
   text-decoration: none;
   padding: 0.75rem 1rem;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   border-bottom: 2px solid transparent;
   transition: all 0.15s;
 }
 nav a:hover, nav a.active { color: var(--text); border-bottom-color: var(--accent); }
-main { max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem; }
-section { margin-bottom: 3rem; padding-top: 0.5rem; }
+
+main { max-width: 1000px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+section { margin-bottom: 3rem; scroll-margin-top: 100px; }
 section h2 {
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   color: var(--accent);
   border-bottom: 1px solid var(--border);
   padding-bottom: 0.5rem;
   margin-bottom: 1.2rem;
+  display: flex; align-items: center; gap: 0.5rem;
 }
+section h2 .sec-icon { font-size: 1.3rem; }
+
+/* Cards */
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 1.5rem;
   margin-bottom: 1rem;
 }
 .card h3 { font-size: 1rem; margin-bottom: 0.8rem; color: var(--text); }
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.88rem;
-}
-th, td {
-  text-align: left;
-  padding: 0.5rem 0.75rem;
-  border-bottom: 1px solid var(--border);
-}
-th { color: var(--muted); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+th, td { text-align: start; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border); }
+th { color: var(--muted); font-weight: 600; font-size: 0.75rem; text-transform: uppercase; }
 td { color: var(--text); }
 .row-total { font-weight: 700; }
 .row-total td { border-top: 2px solid var(--accent); color: var(--green); }
+
+/* Tags */
 .tag {
-  display: inline-block;
-  padding: 0.15rem 0.5rem;
-  border-radius: 12px;
-  font-size: 0.72rem;
-  font-weight: 600;
+  display: inline-block; padding: 0.15rem 0.5rem; border-radius: 12px;
+  font-size: 0.7rem; font-weight: 600; white-space: nowrap;
 }
 .tag-green { background: rgba(63,185,80,0.15); color: var(--green); }
-.tag-orange { background: rgba(210,153,29,0.15); color: var(--orange); }
+.tag-orange { background: rgba(210,153,29,0.15); color: var(--gold); }
 .tag-purple { background: rgba(163,113,247,0.15); color: var(--purple); }
 .tag-red { background: rgba(247,129,102,0.15); color: var(--red); }
 
-.route-flow {
-  display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem;
-  margin: 1rem 0;
-}
-.route-stop {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 0.5rem 0.8rem;
-  font-size: 0.82rem;
-  white-space: nowrap;
-}
-.route-arrow { color: var(--accent); font-size: 1rem; font-weight: bold; }
-
-.timeline { border-left: 2px solid var(--border); margin-left: 0.5rem; padding-left: 1.5rem; }
-.timeline-item { margin-bottom: 1.2rem; position: relative; }
-.timeline-item::before {
-  content: '';
-  position: absolute;
-  left: -1.9rem; top: 0.35rem;
-  width: 10px; height: 10px;
-  border-radius: 50%;
-  background: var(--accent);
-}
-.timeline-date { font-size: 0.78rem; color: var(--muted); }
-.timeline-text { font-size: 0.9rem; }
-
-.todo-list { list-style: none; }
-.todo-list li {
-  padding: 0.4rem 0;
-  font-size: 0.88rem;
-  display: flex; align-items: flex-start; gap: 0.5rem;
-}
-.todo-list li::before { content: '⬜'; font-size: 0.85rem; flex-shrink: 0; }
-
-.contacts-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
-}
-.contact-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 1.2rem;
-}
-.contact-card .name { font-weight: 600; margin-bottom: 0.3rem; }
-.contact-card .detail { font-size: 0.82rem; color: var(--muted); }
-
+/* Cost Summary */
 .cost-summary {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
 .cost-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 1.2rem;
-  text-align: center;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 1.2rem; text-align: center;
 }
 .cost-card .amount { font-size: 1.5rem; font-weight: 700; color: var(--green); }
-.cost-card .label { font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; }
+.cost-card .label { font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem; }
+.cost-card .icon { font-size: 1.5rem; margin-bottom: 0.3rem; }
 
-.pax-grid {
+/* Timeline */
+.timeline {
+  border-inline-start: 2px solid var(--border);
+  margin-inline-start: 0.5rem;
+  padding-inline-start: 1.5rem;
+}
+.timeline-item { margin-bottom: 1.2rem; position: relative; }
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: -1.9rem; top: 0.35rem;
+  width: 10px; height: 10px;
+  border-radius: 50%; background: var(--accent);
+}
+.timeline-date { font-size: 0.78rem; color: var(--muted); }
+.timeline-text { font-size: 0.9rem; }
+
+/* Todo */
+.todo-list { list-style: none; }
+.todo-list li {
+  padding: 0.4rem 0; font-size: 0.86rem;
+  display: flex; align-items: flex-start; gap: 0.5rem;
+}
+.todo-list li::before { content: '⬜'; font-size: 0.8rem; flex-shrink: 0; }
+
+/* Contacts */
+.contacts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+.contact-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.2rem; }
+.contact-card .name { font-weight: 600; margin-bottom: 0.3rem; }
+.contact-card .detail { font-size: 0.8rem; color: var(--muted); }
+
+/* Route Flow */
+.route-flow {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem; margin: 1rem 0; justify-content: center;
+}
+.route-stop {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 0.5rem 0.8rem; font-size: 0.8rem; text-align: center;
+  white-space: nowrap; min-width: 90px;
+}
+.route-arrow { color: var(--accent); font-size: 1rem; font-weight: bold; }
+
+/* SVG Map */
+.map-container {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 1rem; margin-bottom: 1rem;
+  text-align: center; overflow-x: auto;
+}
+.map-container svg { max-width: 100%; height: auto; }
+
+/* Gallery */
+.gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1rem;
+  margin: 1.5rem 0;
 }
-.pax-card {
-  background: var(--surface);
+.gallery-item {
+  border-radius: 10px; overflow: hidden;
   border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 1rem;
-  text-align: center;
+  background: var(--surface);
 }
-.pax-card .icon { font-size: 2rem; margin-bottom: 0.3rem; }
-.pax-card .name { font-weight: 600; font-size: 0.95rem; }
-.pax-card .info { font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem; }
+.gallery-item img { width: 100%; height: 180px; object-fit: cover; display: block; }
+.gallery-item .caption { padding: 0.6rem 0.8rem; font-size: 0.78rem; color: var(--muted); text-align: center; }
+
+/* RTL adjustments */
+[dir="rtl"] th, [dir="rtl"] td { text-align: right; }
+[dir="rtl"] .timeline-item::before { left: auto; }
+[dir="rtl"] .todo-list li { flex-direction: row; }
+[dir="ltr"] .timeline { border-left: 2px solid var(--border); border-right: none; }
+[dir="ltr"] .timeline-item::before { left: -1.9rem; right: auto; }
+[dir="rtl"] .timeline { border-right: 2px solid var(--border); border-left: none; }
+[dir="rtl"] .timeline-item::before { right: -1.9rem; left: auto; }
 
 footer {
-  text-align: center;
-  padding: 2rem;
-  color: var(--muted);
-  font-size: 0.78rem;
-  border-top: 1px solid var(--border);
-  margin-top: 2rem;
+  text-align: center; padding: 2rem;
+  color: var(--muted); font-size: 0.76rem;
+  border-top: 1px solid var(--border); margin-top: 2rem;
 }
-.responsive-note { display: none; }
+
+.hidden { display: none !important; }
+
 @media (max-width: 600px) {
-  header h1 { font-size: 1.1rem; }
+  .hero { min-height: 300px; }
+  .hero h1 { font-size: 1.4rem; }
   main { padding: 1rem; }
-  nav { padding: 0 0.5rem; }
-  nav a { padding: 0.6rem 0.5rem; font-size: 0.78rem; }
+  nav { padding: 0 0.5rem; top: 44px; }
+  nav a { padding: 0.6rem 0.5rem; font-size: 0.75rem; }
+  .lang-bar { padding: 0.4rem 0.5rem; }
 }
 </style>
 </head>
 <body>
 
-<header>
-  <h1>🛳️ Барселона & Средиземноморский круиз</h1>
-  <p>Семейная поездка семьи Гилядовых • 15–28 сентября 2026</p>
+<!-- ====== LANGUAGE SWITCHER ====== -->
+<div class="lang-bar">
+  <button class="lang-btn active" onclick="switchLang('he')" id="btn-he">עברית</button>
+  <button class="lang-btn" onclick="switchLang('ru')" id="btn-ru">Русский</button>
+  <button class="lang-btn" onclick="switchLang('en')" id="btn-en">English</button>
+</div>
+
+<!-- ====== HERO ====== -->
+<header class="hero">
+  <img class="hero-img"
+       src="https://images.unsplash.com/photo-1548574505-5e239809ee19?w=1200&q=80"
+       alt="Barcelona"
+       onerror="this.style.display='none'">
+  <div class="hero-overlay">
+    <div class="ship-icon">🛳️</div>
+    <h1 data-lang="hero-title">ברצלונה והקרוז במערב הים התיכון</h1>
+    <p data-lang="hero-sub">חופשה משפחתית — משפחת גיליאדוב</p>
+    <div class="dates">📍 15–28 בספטמבר 2026</div>
+  </div>
 </header>
 
+<!-- ====== NAV ====== -->
 <nav>
-  <a href="#overview">Обзор</a>
-  <a href="#flights">Перелёты</a>
-  <a href="#hotel">Отель</a>
-  <a href="#cruise">Круиз</a>
-  <a href="#passengers">Пассажиры</a>
-  <a href="#cost">Стоимость</a>
-  <a href="#timeline">Календарь</a>
-  <a href="#todo">Что нужно</a>
-  <a href="#contacts">Контакты</a>
+  <a href="#overview" data-lang="nav-overview">סקירה</a>
+  <a href="#map-section" data-lang="nav-map">מפת מסלול</a>
+  <a href="#flights" data-lang="nav-flights">טיסות</a>
+  <a href="#hotel" data-lang="nav-hotel">מלון</a>
+  <a href="#cruise" data-lang="nav-cruise">קרוז</a>
+  <a href="#passengers" data-lang="nav-passengers">נוסעים</a>
+  <a href="#cost" data-lang="nav-cost">עלויות</a>
+  <a href="#timeline" data-lang="nav-timeline">לוח זמנים</a>
+  <a href="#todo" data-lang="nav-todo">לעשות</a>
+  <a href="#gallery" data-lang="nav-gallery">גלריה</a>
+  <a href="#contacts" data-lang="nav-contacts">אנשי קשר</a>
 </nav>
 
 <main>
 
-<!-- ======== ОБЗОР ======== -->
+<!-- ====== OVERVIEW ====== -->
 <section id="overview">
-<h2>📋 Обзор поездки</h2>
+<h2><span class="sec-icon">📋</span> <span data-lang="overview-title">סקירה כללית</span></h2>
 
 <div class="cost-summary">
-  <div class="cost-card">
-    <div class="amount">5 чел.</div>
-    <div class="label">Путешественников</div>
-  </div>
-  <div class="cost-card">
-    <div class="amount">13 дней</div>
-    <div class="label">Общая длительность</div>
-  </div>
-  <div class="cost-card">
-    <div class="amount">$8,177</div>
-    <div class="label">Примерно общая стоимость</div>
-  </div>
-  <div class="cost-card">
-    <div class="amount">3 страны</div>
-    <div class="label">Испания · Франция · Италия</div>
-  </div>
+  <div class="cost-card"><div class="icon">👨‍👩‍👧‍👦</div><div class="amount">5</div><div class="label" data-lang="ov-travelers">נוסעים</div></div>
+  <div class="cost-card"><div class="icon">📅</div><div class="amount">13</div><div class="label" data-lang="ov-days">ימים</div></div>
+  <div class="cost-card"><div class="icon">💰</div><div class="amount">~$8,200</div><div class="label" data-lang="ov-cost">עלות משוערת</div></div>
+  <div class="cost-card"><div class="icon">🌍</div><div class="amount">3</div><div class="label" data-lang="ov-countries">מדינות</div></div>
 </div>
 
 <div class="card">
-  <h3>Кратко</h3>
-  <p style="color:var(--muted); font-size:0.9rem;">
-    15 сентября вылетаем из Тель-Авива в Барселону рейсом El Al LY391.
-    5 ночей в апартаментах Casp 74 в центре Барселоны.
-    20 сентября — посадка на круизный лайнер Royal Caribbean Legend of the Seas.
-    7 ночей по Средиземному морю: Майорка, Марсель, Ла Специя, Рим, Неаполь.
-    Возвращение в Барселону 27 сентября, вечерний рейс LY392 в Тель-Авив.
+  <p style="color:var(--muted); font-size:0.9rem;" data-lang="overview-text">
+    15 בספטמבר — טיסת אל על LY391 מתל אביב לברצלונה. 5 לילות בדירת Casp 74 במרכז העיר.
+    20 בספטמבר — עלייה על אוניית הקרוז Legend of the Seas של Royal Caribbean.
+    7 לילות בים התיכון: מיורקה, מרסיי, לה ספציה, רומא, נאפולי.
+    חזרה לברצלונה ב-27 בספטמבר, טיסת ערב LY392 לתל אביב.
   </p>
 </div>
 </section>
 
-<!-- ======== ПЕРЕЛЁТЫ ======== -->
+<!-- ====== MAP SECTION ====== -->
+<section id="map-section">
+<h2><span class="sec-icon">🗺️</span> <span data-lang="map-title">מפת מסלול הקרוז</span></h2>
+
+<div class="map-container">
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ocean" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a3a5c"/>
+      <stop offset="100%" stop-color="#0d2137"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="shadow">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- Ocean background -->
+  <rect width="800" height="500" fill="url(#ocean)"/>
+
+  <!-- Simplified Mediterranean coastline -->
+  <!-- Spain -->
+  <path d="M80,180 L120,170 L170,175 L200,200 L190,240 L160,280 L120,300 L80,310 L60,280 L50,240 Z"
+        fill="#2d4a3e" stroke="#4a7c5c" stroke-width="1.5" opacity="0.9"/>
+  <!-- France -->
+  <path d="M200,200 L240,150 L290,140 L340,145 L370,160 L380,190 L360,220 L320,240 L280,260 L240,270 Z"
+        fill="#2d4a3e" stroke="#4a7c5c" stroke-width="1.5" opacity="0.9"/>
+  <!-- Italy -->
+  <path d="M370,150 L400,130 L430,140 L450,170 L460,200 L455,250 L440,290 L420,320 L400,340 L380,330 L360,300 L355,260 L360,220 Z"
+        fill="#2d4a3e" stroke="#4a7c5c" stroke-width="1.5" opacity="0.9"/>
+  <!-- Islands (Mallorca, Sardinia, Corsica, Sicily) -->
+  <ellipse cx="260" cy="250" rx="30" ry="18" fill="#2d4a3e" stroke="#4a7c5c" stroke-width="1" opacity="0.8" transform="rotate(-20,260,250)"/>
+  <ellipse cx="450" cy="280" rx="22" ry="15" fill="#2d4a3e" stroke="#4a7c5c" stroke-width="1" opacity="0.8"/>
+  <ellipse cx="340" cy="200" rx="18" ry="12" fill="#2d4a3e" stroke="#4a7c5c" stroke-width="1" opacity="0.8"/>
+  <ellipse cx="510" cy="370" rx="35" ry="25" fill="#2d4a3e" stroke="#4a7c5c" stroke-width="1" opacity="0.8" transform="rotate(5,510,370)"/>
+
+  <!-- Africa coast (top edge only) -->
+  <path d="M50,450 L150,430 L280,420 L400,425 L500,430 L600,440 L750,455 L800,460 L800,500 L0,500 L0,460 Z"
+        fill="#2d4a3e" stroke="#4a7c5c" stroke-width="1" opacity="0.7"/>
+
+  <!-- Route lines -->
+  <polyline points="170,290 260,250 320,210 370,200 440,280 500,320 560,380"
+            fill="none" stroke="#58a6ff" stroke-width="3" stroke-dasharray="8,4"
+            filter="url(#glow)" opacity="0.8"/>
+
+  <!-- Route arrows (animated-looking) -->
+  <circle cx="170" cy="290" r="4" fill="#58a6ff" filter="url(#glow)"/>
+  <circle cx="260" cy="250" r="4" fill="#58a6ff" filter="url(#glow)"/>
+  <circle cx="320" cy="210" r="4" fill="#58a6ff" filter="url(#glow)"/>
+  <circle cx="370" cy="200" r="4" fill="#58a6ff" filter="url(#glow)"/>
+  <circle cx="440" cy="280" r="4" fill="#58a6ff" filter="url(#glow)"/>
+  <circle cx="500" cy="320" r="4" fill="#58a6ff" filter="url(#glow)"/>
+  <circle cx="560" cy="380" r="4" fill="#58a6ff" filter="url(#glow)"/>
+
+  <!-- Return route -->
+  <polyline points="560,380 580,360 600,320 560,300 500,310 400,290 300,300 200,310 170,290"
+            fill="none" stroke="#d2991d" stroke-width="2" stroke-dasharray="6,6" opacity="0.5"/>
+
+  <!-- Stop markers -->
+  <!-- 1. Barcelona -->
+  <g filter="url(#shadow)">
+    <circle cx="170" cy="290" r="12" fill="#d2991d" stroke="#fff" stroke-width="2"/>
+    <text x="170" y="294" text-anchor="middle" font-size="12" fill="#000" font-weight="bold">1</text>
+    <text x="170" y="316" text-anchor="middle" font-size="11" fill="#fff" font-weight="600">ברצלונה</text>
+    <text x="170" y="330" text-anchor="middle" font-size="9" fill="#8b949e">Barcelona</text>
+
+    <!-- 2. Palma de Mallorca -->
+    <circle cx="260" cy="250" r="12" fill="#58a6ff" stroke="#fff" stroke-width="2"/>
+    <text x="260" y="254" text-anchor="middle" font-size="12" fill="#000" font-weight="bold">2</text>
+    <text x="260" y="234" text-anchor="middle" font-size="11" fill="#fff" font-weight="600">פלמה דה מיורקה</text>
+    <text x="260" y="220" text-anchor="middle" font-size="9" fill="#8b949e">Palma de Mallorca</text>
+
+    <!-- 3. Marseille -->
+    <circle cx="320" cy="210" r="12" fill="#3fb950" stroke="#fff" stroke-width="2"/>
+    <text x="320" y="214" text-anchor="middle" font-size="12" fill="#000" font-weight="bold">3</text>
+    <text x="320" y="194" text-anchor="middle" font-size="11" fill="#fff" font-weight="600">מרסיי</text>
+    <text x="320" y="180" text-anchor="middle" font-size="9" fill="#8b949e">Marseille</text>
+
+    <!-- 4. La Spezia -->
+    <circle cx="370" cy="200" r="12" fill="#a371f7" stroke="#fff" stroke-width="2"/>
+    <text x="370" y="204" text-anchor="middle" font-size="12" fill="#000" font-weight="bold">4</text>
+    <text x="370" y="184" text-anchor="middle" font-size="11" fill="#fff" font-weight="600">לה ספציה</text>
+    <text x="370" y="170" text-anchor="middle" font-size="9" fill="#8b949e">La Spezia</text>
+
+    <!-- 5. Rome (Civitavecchia) -->
+    <circle cx="440" cy="280" r="12" fill="#f78166" stroke="#fff" stroke-width="2"/>
+    <text x="440" y="284" text-anchor="middle" font-size="12" fill="#000" font-weight="bold">5</text>
+    <text x="440" y="264" text-anchor="middle" font-size="11" fill="#fff" font-weight="600">רומא</text>
+    <text x="440" y="250" text-anchor="middle" font-size="9" fill="#8b949e">Rome</text>
+
+    <!-- 6. Naples -->
+    <circle cx="500" cy="320" r="12" fill="#58a6ff" stroke="#fff" stroke-width="2"/>
+    <text x="500" y="324" text-anchor="middle" font-size="12" fill="#000" font-weight="bold">6</text>
+    <text x="500" y="340" text-anchor="middle" font-size="11" fill="#fff" font-weight="600">נאפולי</text>
+    <text x="500" y="354" text-anchor="middle" font-size="9" fill="#8b949e">Naples</text>
+
+    <!-- 7. Barcelona (return) -->
+    <circle cx="560" cy="380" r="10" fill="#d2991d" stroke="#fff" stroke-width="2" opacity="0.8"/>
+    <text x="560" y="384" text-anchor="middle" font-size="10" fill="#000" font-weight="bold">7</text>
+    <text x="560" y="398" text-anchor="middle" font-size="10" fill="#d2991d" font-weight="600">חזרה ◀</text>
+  </g>
+
+  <!-- Legend -->
+  <g transform="translate(600, 20)">
+    <rect x="0" y="0" width="180" height="65" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+    <line x1="10" y1="18" x2="45" y2="18" stroke="#58a6ff" stroke-width="2" stroke-dasharray="6,3"/>
+    <text x="55" y="22" font-size="10" fill="#8b949e">מסלול הקרוז</text>
+    <line x1="10" y1="38" x2="45" y2="38" stroke="#d2991d" stroke-width="2" stroke-dasharray="4,4"/>
+    <text x="55" y="42" font-size="10" fill="#8b949e">חזרה</text>
+    <circle cx="20" cy="54" r="6" fill="#d2991d" stroke="#fff" stroke-width="1"/>
+    <text x="55" y="58" font-size="10" fill="#8b949e">נמל התחלה/סיום</text>
+  </g>
+
+  <!-- Ship icon near Barcelona -->
+  <text x="155" y="275" font-size="22" filter="url(#shadow)">🛳️</text>
+</svg>
+</div>
+</section>
+
+<!-- ====== FLIGHTS ====== -->
 <section id="flights">
-<h2>✈️ Авиаперелёты — El Al</h2>
+<h2><span class="sec-icon">✈️</span> <span data-lang="flights-title">טיסות — אל על</span></h2>
 
 <div class="card">
-  <h3>Бронь Z6R5X2 <span class="tag tag-green">Оплачено</span></h3>
+  <h3><span data-lang="flights-booking">הזמנה Z6R5X2</span> <span class="tag tag-green">✓</span></h3>
   <table>
-    <tr><th>Рейс</th><td><strong>LY 391</strong> • TLV → BCN</td><td><strong>LY 392</strong> • BCN → TLV</td></tr>
-    <tr><th>Дата</th><td>15 сентября 2026 (вт)</td><td>27 сентября 2026 (вс)</td></tr>
-    <tr><th>Вылет</th><td>17:45 • Тель-Авив</td><td>23:35 • Барселона</td></tr>
-    <tr><th>Прилёт</th><td>22:25 • Барселона</td><td>03:40 (+1) • Тель-Авив</td></tr>
-    <tr><th>В пути</th><td>4ч 40м</td><td>4ч 05м</td></tr>
+    <tr><th><span data-lang="flights-th-flight">טיסה</span></th><td><strong>LY 391</strong> • TLV → BCN</td><td><strong>LY 392</strong> • BCN → TLV</td></tr>
+    <tr><th data-lang="flights-th-date">תאריך</th><td>15.09.2026</td><td>27.09.2026</td></tr>
+    <tr><th data-lang="flights-th-dep">המראה</th><td>17:45 • תל אביב</td><td>23:35 • ברצלונה</td></tr>
+    <tr><th data-lang="flights-th-arr">נחיתה</th><td>22:25 • ברצלונה</td><td>03:40 (+1) • תל אביב</td></tr>
+    <tr><th data-lang="flights-th-dur">משך</th><td>4ש 40ד</td><td>4ש 05ד</td></tr>
   </table>
 </div>
 
 <div class="card">
-  <h3>Тариф</h3>
+  <h3 data-lang="flights-fare">תעריף</h3>
   <table>
-    <tr><th>Базовая стоимость</th><td>$514.00</td></tr>
-    <tr><th>Налоги и сборы</th><td>$65.47</td></tr>
-    <tr class="row-total"><th>На пассажира</th><td>$579.47</td></tr>
-    <tr class="row-total"><th>На 5 человек</th><td>$2,897.35</td></tr>
+    <tr><th data-lang="flights-base">מחיר בסיס</th><td>$514.00</td></tr>
+    <tr><th data-lang="flights-tax">מיסים ואגרות</th><td>$65.47</td></tr>
+    <tr class="row-total"><th data-lang="flights-per-pax">לנוסע</th><td>$579.47</td></tr>
+    <tr class="row-total"><th data-lang="flights-total">סה"כ 5 נוסעים</th><td>$2,897.35</td></tr>
   </table>
 </div>
 </section>
 
-<!-- ======== ОТЕЛЬ ======== -->
+<!-- ====== HOTEL ====== -->
 <section id="hotel">
-<h2>🏨 Отель — Casp 74 Apartments</h2>
+<h2><span class="sec-icon">🏨</span> <span data-lang="hotel-title">מלון — Casp 74 Apartments</span></h2>
 
 <div class="card">
-  <h3>Бронь Booking.com #5304825645 <span class="tag tag-green">Оплачено</span></h3>
+  <h3><span data-lang="hotel-booking">הזמנה Booking.com #5304825645</span> <span class="tag tag-green">✓</span></h3>
   <table>
-    <tr><th>Адрес</th><td>Casp, 74, Barcelona 08010, Испания</td></tr>
-    <tr><th>Заезд</th><td>15 сентября 2026 (после 22:25 — уточнить late check-in)</td></tr>
-    <tr><th>Выезд</th><td>20 сентября 2026 (утро, круиз в 17:00)</td></tr>
-    <tr><th>Ночей</th><td>5</td></tr>
-    <tr class="row-total"><th>Оплачено</th><td>€1,546.34 (19 января 2026)</td></tr>
+    <tr><th data-lang="hotel-addr">כתובת</th><td>Casp, 74, Barcelona 08010, ספרד</td></tr>
+    <tr><th data-lang="hotel-checkin">צ'ק-אין</th><td data-lang="hotel-checkin-val">15.09.2026 (אחרי 22:25 — נדרש תיאום צ'ק-אין מאוחר)</td></tr>
+    <tr><th data-lang="hotel-checkout">צ'ק-אאוט</th><td data-lang="hotel-checkout-val">20.09.2026 (בוקר, הקרוז ב-17:00)</td></tr>
+    <tr><th data-lang="hotel-nights">לילות</th><td>5</td></tr>
+    <tr class="row-total"><th data-lang="hotel-paid">שולם</th><td>€1,546.34</td></tr>
   </table>
 </div>
 </section>
 
-<!-- ======== КРУИЗ ======== -->
+<!-- ====== CRUISE ====== -->
 <section id="cruise">
-<h2>🚢 Круиз — Royal Caribbean Legend of the Seas</h2>
+<h2><span class="sec-icon">🚢</span> <span data-lang="cruise-title">קרוז — Royal Caribbean Legend of the Seas</span></h2>
 
 <div class="card">
-  <h3>Бронь 6614073 • Инвойс #3007303 <span class="tag tag-green">PAID IN FULL</span></h3>
+  <h3><span data-lang="cruise-booking">הזמנה 6614073 • חשבונית #3007303</span> <span class="tag tag-green">PAID IN FULL</span></h3>
   <table>
-    <tr><th>Корабль</th><td>Legend of the Seas</td></tr>
-    <tr><th>Отправление</th><td>20 сентября 2026, 17:00 — Барселона</td></tr>
-    <tr><th>Возвращение</th><td>27 сентября 2026, 05:00 — Барселона</td></tr>
-    <tr><th>Длительность</th><td>7 ночей</td></tr>
-    <tr><th>Агент</th><td>Atlantida LLC • Albert Berenshteyn</td></tr>
+    <tr><th data-lang="cruise-ship">אונייה</th><td>Legend of the Seas</td></tr>
+    <tr><th data-lang="cruise-dep">יציאה</th><td>20.09.2026, 17:00 — ברצלונה</td></tr>
+    <tr><th data-lang="cruise-arr">חזרה</th><td>27.09.2026, 05:00 — ברצלונה</td></tr>
+    <tr><th data-lang="cruise-dur">משך</th><td>7 לילות</td></tr>
+    <tr><th data-lang="cruise-agent">סוכן</th><td>Atlantida LLC • Albert Berenshteyn</td></tr>
     <tr><th>Member ID</th><td>396146236 (Crown & Anchor)</td></tr>
   </table>
 </div>
 
 <div class="card">
-  <h3>🗺️ Маршрут</h3>
+  <h3>🗺️ <span data-lang="cruise-route-title">מסלול</span></h3>
   <div class="route-flow">
-    <div class="route-stop">🇪🇸 Барселона<br><small>отправление</small></div>
+    <div class="route-stop">🇪🇸 ברצלונה<br><small>יציאה</small></div>
     <div class="route-arrow">→</div>
-    <div class="route-stop">🇪🇸 Пальма-де-Майорка</div>
+    <div class="route-stop">🇪🇸 פלמה דה מיורקה</div>
     <div class="route-arrow">→</div>
-    <div class="route-stop">🇫🇷 Марсель</div>
+    <div class="route-stop">🇫🇷 מרסיי</div>
     <div class="route-arrow">→</div>
-    <div class="route-stop">🇮🇹 Ла Специя</div>
+    <div class="route-stop">🇮🇹 לה ספציה</div>
     <div class="route-arrow">→</div>
-    <div class="route-stop">🇮🇹 Рим<br><small>Чивитавеккья</small></div>
+    <div class="route-stop">🇮🇹 רומא<br><small>צ'יוויטווקיה</small></div>
     <div class="route-arrow">→</div>
-    <div class="route-stop">🇮🇹 Неаполь</div>
+    <div class="route-stop">🇮🇹 נאפולי</div>
     <div class="route-arrow">→</div>
-    <div class="route-stop">🇪🇸 Барселона<br><small>возвращение</small></div>
+    <div class="route-stop">🇪🇸 ברצלונה<br><small>חזרה</small></div>
   </div>
 </div>
 
 <div class="card">
-  <h3>🛏️ Каюта</h3>
+  <h3>🛏️ <span data-lang="cruise-cabin-title">תא</span></h3>
   <table>
-    <tr><th>Тип</th><td>Ocean View Balcony Quad Gty</td></tr>
-    <tr><th>Категория</th><td>XQ</td></tr>
-    <tr><th>Номер</th><td><span class="tag tag-orange">GTY — назначается при чекине</span></td></tr>
-    <tr><th>Ужин</th><td>17:30 (ранняя смена)</td></tr>
+    <tr><th data-lang="cruise-cabin-type">סוג</th><td>Ocean View Balcony Quad Gty</td></tr>
+    <tr><th data-lang="cruise-cabin-cat">קטגוריה</th><td>XQ</td></tr>
+    <tr><th data-lang="cruise-cabin-num">מספר</th><td><span class="tag tag-orange">GTY — ייקבע בצ'ק-אין</span></td></tr>
+    <tr><th data-lang="cruise-dinner">ארוחת ערב</th><td>17:30</td></tr>
     <tr><th>Onboard Credit</th><td>$50.00</td></tr>
   </table>
 </div>
 </section>
 
-<!-- ======== ПАССАЖИРЫ ======== -->
+<!-- ====== PASSENGERS ====== -->
 <section id="passengers">
-<h2>👨‍👩‍👧‍👦 Пассажиры</h2>
+<h2><span class="sec-icon">👨‍👩‍👧‍👦</span> <span data-lang="pax-title">נוסעים</span></h2>
 
 <div class="card">
-  <h3>Авиарейсы (5 человек) — бронь Z6R5X2</h3>
+  <h3 data-lang="pax-flights">טיסות (5 אנשים) — הזמנה Z6R5X2</h3>
   <table>
-    <tr><th>#</th><th>Имя</th><th>Статус</th><th>Номер билета</th></tr>
+    <tr><th>#</th><th data-lang="pax-name">שם</th><th data-lang="pax-status">סטטוס</th><th data-lang="pax-ticket">כרטיס</th></tr>
     <tr><td>1</td><td>Gregory Gilyadov</td><td><span class="tag tag-green">ADT</span></td><td>1142493483652</td></tr>
     <tr><td>2</td><td>Tami Frida Gilyadov</td><td><span class="tag tag-green">ADT</span></td><td>1142493483653</td></tr>
     <tr><td>3</td><td>Gilad Gilyadov</td><td><span class="tag tag-green">ADT</span></td><td>1142493483654</td></tr>
@@ -352,151 +537,186 @@ footer {
 </div>
 
 <div class="card">
-  <h3>Круиз (4 человека) — бронь 6614073</h3>
+  <h3 data-lang="pax-cruise">קרוז (4 אנשים) — הזמנה 6614073</h3>
   <table>
-    <tr><th>#</th><th>Имя</th><th>Дата рождения</th><th>Гражданство</th></tr>
-    <tr><td>1</td><td>Mr Gregory Gilyadov</td><td>29.09.1975</td><td>🇮🇱 Израиль</td></tr>
-    <tr><td>2</td><td>Mrs Tami Frida Gilyadov</td><td>20.11.1985</td><td>🇮🇱 Израиль</td></tr>
-    <tr><td>3</td><td>Mr Gilad Gilyadov</td><td>08.12.2007</td><td>🇮🇱 Израиль</td></tr>
-    <tr><td>4</td><td>Miss Shira Gilyadov</td><td>25.04.2016</td><td>🇮🇱 Израиль</td></tr>
+    <tr><th>#</th><th data-lang="pax-name">שם</th><th data-lang="pax-dob">תאריך לידה</th><th data-lang="pax-nationality">אזרחות</th></tr>
+    <tr><td>1</td><td>Mr Gregory Gilyadov</td><td>29.09.1975</td><td>🇮🇱 ישראל</td></tr>
+    <tr><td>2</td><td>Mrs Tami Frida Gilyadov</td><td>20.11.1985</td><td>🇮🇱 ישראל</td></tr>
+    <tr><td>3</td><td>Mr Gilad Gilyadov</td><td>08.12.2007</td><td>🇮🇱 ישראל</td></tr>
+    <tr><td>4</td><td>Miss Shira Gilyadov</td><td>25.04.2016</td><td>🇮🇱 ישראל</td></tr>
   </table>
   <p style="margin-top:0.8rem; font-size:0.82rem; color:var(--muted);">
-    ⚠️ <strong>Тамир</strong> — на том же корабле с бабушкой. Отдельное бронирование.
+    ⚠️ <strong data-lang="pax-tamir-note">תמיר — על אותה אונייה עם סבתא. הזמנה נפרדת.</strong>
   </p>
 </div>
 </section>
 
-<!-- ======== СТОИМОСТЬ ======== -->
+<!-- ====== COST ====== -->
 <section id="cost">
-<h2>💰 Стоимость</h2>
+<h2><span class="sec-icon">💰</span> <span data-lang="cost-title">עלויות</span></h2>
 
 <div class="cost-summary">
-  <div class="cost-card">
-    <div class="amount">$2,897</div>
-    <div class="label">Авиабилеты (5 чел. × $579)</div>
-  </div>
-  <div class="cost-card">
-    <div class="amount">€1,546</div>
-    <div class="label">Отель (5 ночей)</div>
-  </div>
-  <div class="cost-card">
-    <div class="amount">$5,280</div>
-    <div class="label">Круиз (4 чел.)</div>
-  </div>
+  <div class="cost-card"><div class="icon">✈️</div><div class="amount">$2,897</div><div class="label" data-lang="cost-flights">טיסות (5 × $579)</div></div>
+  <div class="cost-card"><div class="icon">🏨</div><div class="amount">€1,546</div><div class="label" data-lang="cost-hotel">מלון (5 לילות)</div></div>
+  <div class="cost-card"><div class="icon">🚢</div><div class="amount">$5,280</div><div class="label" data-lang="cost-cruise">קרוז (4 אנשים)</div></div>
 </div>
 
 <div class="card">
-  <h3>Детали круиза — Инвойс #3007303</h3>
+  <h3 data-lang="cost-invoice">פירוט קרוז — חשבונית #3007303</h3>
   <table>
-    <tr><th>#</th><th>Описание</th><th>Цена за ед.</th><th>Кол-во</th><th>Сумма</th></tr>
+    <tr><th>#</th><th data-lang="cost-desc">תיאור</th><th data-lang="cost-unit">מחיר ליח'</th><th data-lang="cost-qty">כמות</th><th data-lang="cost-sum">סה"כ</th></tr>
     <tr><td>1</td><td>Cruise Rate</td><td>$3,341.00</td><td>1</td><td>$3,341.00</td></tr>
     <tr><td>2</td><td>Cruise Rate</td><td>$1,456.00</td><td>1</td><td>$1,456.00</td></tr>
     <tr><td>3</td><td>Government Fees</td><td>$133.42</td><td>4</td><td>$533.68</td></tr>
     <tr><td>4</td><td>Agency Discount</td><td>-$25.34</td><td>2</td><td>-$50.68</td></tr>
-    <tr class="row-total"><td colspan="4">ИТОГО</td><td>$5,280.00</td></tr>
+    <tr class="row-total"><td colspan="4" data-lang="cost-total">סה"כ</td><td>$5,280.00</td></tr>
   </table>
   <p style="margin-top:0.8rem; font-size:0.82rem; color:var(--muted);">
-    Оплата: Visa (...9289) $1,000 + MasterCard (...8180) $4,280 • 19 января 2026
+    <span data-lang="cost-payment">תשלום: Visa + MasterCard • 19 בינואר 2026</span>
   </p>
 </div>
 </section>
 
-<!-- ======== КАЛЕНДАРЬ ======== -->
+<!-- ====== TIMELINE ====== -->
 <section id="timeline">
-<h2>📅 Календарь поездки</h2>
+<h2><span class="sec-icon">📅</span> <span data-lang="tl-title">לוח זמנים</span></h2>
 
 <div class="timeline">
   <div class="timeline-item">
-    <div class="timeline-date">15 сентября • вторник</div>
-    <div class="timeline-text">✈️ Вылет TLV 17:45 → BCN 22:25. Заселение в Casp 74.</div>
+    <div class="timeline-date">15.09 • <span data-lang="tl-d1">יום ג'</span></div>
+    <div class="timeline-text">✈️ <span data-lang="tl-t1">המראה TLV 17:45 → BCN 22:25. צ'ק-אין במלון Casp 74.</span></div>
   </div>
   <div class="timeline-item">
-    <div class="timeline-date">16–19 сентября</div>
-    <div class="timeline-text">🏙️ Барселона — 4 полных дня. Саграда Фамилия, Парк Гуэль, Готический квартал, пляжи.</div>
+    <div class="timeline-date">16–19.09</div>
+    <div class="timeline-text">🏙️ <span data-lang="tl-t2">ברצלונה — 4 ימים. סגרדה פמיליה, פארק גואל, הרובע הגותי, חופים.</span></div>
   </div>
   <div class="timeline-item">
-    <div class="timeline-date">20 сентября • воскресенье</div>
-    <div class="timeline-text">🏨 Выезд из отеля. 🚢 Посадка на Legend of the Seas. Отправление 17:00.</div>
+    <div class="timeline-date">20.09 • <span data-lang="tl-d3">יום א'</span></div>
+    <div class="timeline-text">🏨 <span data-lang="tl-t3">צ'ק-אאוט. 🚢 עלייה לאונייה Legend of the Seas. יציאה 17:00.</span></div>
   </div>
   <div class="timeline-item">
-    <div class="timeline-date">21 сентября</div>
-    <div class="timeline-text">🇪🇸 Пальма-де-Майорка — собор, Старый город, пляжи.</div>
+    <div class="timeline-date">21.09</div>
+    <div class="timeline-text">🇪🇸 <span data-lang="tl-t4">פלמה דה מיורקה — קתדרלה, עיר עתיקה, חופים.</span></div>
   </div>
   <div class="timeline-item">
-    <div class="timeline-date">22 сентября</div>
-    <div class="timeline-text">🇫🇷 Марсель — Старый порт, базилика Нотр-Дам-де-ла-Гард.</div>
+    <div class="timeline-date">22.09</div>
+    <div class="timeline-text">🇫🇷 <span data-lang="tl-t5">מרסיי — הנמל הישן, בזיליקת נוטרדאם דה לה גארד.</span></div>
   </div>
   <div class="timeline-item">
-    <div class="timeline-date">23 сентября</div>
-    <div class="timeline-text">🇮🇹 Ла Специя — ворота в Чинкве-Терре.</div>
+    <div class="timeline-date">23.09</div>
+    <div class="timeline-text">🇮🇹 <span data-lang="tl-t6">לה ספציה — שער לצ'ינקווה טרה.</span></div>
   </div>
   <div class="timeline-item">
-    <div class="timeline-date">24 сентября</div>
-    <div class="timeline-text">🇮🇹 Рим (Чивитавеккья) — Колизей, Ватикан, фонтаны.</div>
+    <div class="timeline-date">24.09</div>
+    <div class="timeline-text">🇮🇹 <span data-lang="tl-t7">רומא (צ'יוויטווקיה) — קולוסיאום, ותיקן, מזרקות.</span></div>
   </div>
   <div class="timeline-item">
-    <div class="timeline-date">25 сентября</div>
-    <div class="timeline-text">🇮🇹 Неаполь — Помпеи, Амальфитанское побережье, пицца.</div>
+    <div class="timeline-date">25.09</div>
+    <div class="timeline-text">🇮🇹 <span data-lang="tl-t8">נאפולי — פומפיי, חוף אמאלפי, פיצה.</span></div>
   </div>
   <div class="timeline-item">
-    <div class="timeline-date">26 сентября</div>
-    <div class="timeline-text">🌊 День в море — отдых на корабле.</div>
+    <div class="timeline-date">26.09</div>
+    <div class="timeline-text">🌊 <span data-lang="tl-t9">יום בים — מנוחה על האונייה.</span></div>
   </div>
   <div class="timeline-item">
-    <div class="timeline-date">27 сентября • воскресенье</div>
-    <div class="timeline-text">🚢 Прибытие BCN 05:00. ✈️ Вылет BCN 23:35 → TLV.</div>
+    <div class="timeline-date">27.09 • <span data-lang="tl-d10">יום א'</span></div>
+    <div class="timeline-text">🚢 <span data-lang="tl-t10">הגעה BCN 05:00. ✈️ המראה BCN 23:35 → TLV.</span></div>
   </div>
   <div class="timeline-item">
-    <div class="timeline-date">28 сентября • понедельник</div>
-    <div class="timeline-text">🏠 Прилёт TLV 03:40. Дома!</div>
+    <div class="timeline-date">28.09 • <span data-lang="tl-d11">יום ב'</span></div>
+    <div class="timeline-text">🏠 <span data-lang="tl-t11">נחיתה TLV 03:40. בבית!</span></div>
   </div>
 </div>
 </section>
 
-<!-- ======== TO-DO ======== -->
+<!-- ====== TODO ====== -->
 <section id="todo">
-<h2>✅ Что ещё нужно сделать</h2>
+<h2><span class="sec-icon">✅</span> <span data-lang="todo-title">מה עוד צריך לעשות</span></h2>
 
 <div class="card">
   <ul class="todo-list">
-    <li><span class="tag tag-red">Важно</span> Оформить туристическую страховку для всех (Израиль)</li>
-    <li><span class="tag tag-red">Важно</span> Проверить паспорта — срок действия минимум до марта 2027</li>
-    <li><span class="tag tag-red">Важно</span> Онлайн check-in на Royal Caribbean (за 7 дней до круиза)</li>
-    <li><span class="tag tag-orange">Нужно</span> Трансфер аэропорт Барселоны → отель (15 сен, ~23:00)</li>
-    <li><span class="tag tag-orange">Нужно</span> Трансфер отель → порт (20 сен, утро)</li>
-    <li><span class="tag tag-orange">Нужно</span> Трансфер порт → аэропорт (27 сен)</li>
-    <li><span class="tag tag-orange">Нужно</span> Уточнить late check-in в Casp 74 (прилёт 22:25)</li>
-    <li><span class="tag tag-purple">Желательно</span> Предзаказ на круизе: напитки, интернет, экскурсии (до -35%)</li>
-    <li><span class="tag tag-purple">Желательно</span> Разрешение на выезд Ширы (если требуется)</li>
-    <li>Установить приложение Royal Caribbean</li>
-    <li>Проверить визовые требования Италии для израильтян</li>
-    <li>Найти отдельный инвойс Тамира с бабушкой</li>
+    <li><span class="tag tag-red" data-lang="todo-important">חשוב</span> <span data-lang="todo-1">ביטוח נסיעות לכל המשפחה (בישראל)</span></li>
+    <li><span class="tag tag-red" data-lang="todo-important">חשוב</span> <span data-lang="todo-2">בדיקת תוקף דרכונים — לפחות עד מרץ 2027</span></li>
+    <li><span class="tag tag-red" data-lang="todo-important">חשוב</span> <span data-lang="todo-3">צ'ק-אין מקוון ב-Royal Caribbean (7 ימים לפני)</span></li>
+    <li><span class="tag tag-orange" data-lang="todo-needed">נדרש</span> <span data-lang="todo-4">הסעה משדה התעופה למלון (15.09, ~23:00)</span></li>
+    <li><span class="tag tag-orange" data-lang="todo-needed">נדרש</span> <span data-lang="todo-5">הסעה מהמלון לנמל (20.09, בוקר)</span></li>
+    <li><span class="tag tag-orange" data-lang="todo-needed">נדרש</span> <span data-lang="todo-6">הסעה מהנמל לשדה התעופה (27.09)</span></li>
+    <li><span class="tag tag-orange" data-lang="todo-needed">נדרש</span> <span data-lang="todo-7">תיאום צ'ק-אין מאוחר ב-Casp 74 (נחיתה 22:25)</span></li>
+    <li><span class="tag tag-purple" data-lang="todo-wanted">רצוי</span> <span data-lang="todo-8">הזמנות מראש בקרוז: שתייה, אינטרנט, טיולים (עד 35% הנחה)</span></li>
+    <li><span class="tag tag-purple" data-lang="todo-wanted">רצוי</span> <span data-lang="todo-9">אישור יציאה מהארץ לשירה (אם נדרש)</span></li>
+    <li><span data-lang="todo-10">התקנת אפליקציית Royal Caribbean</span></li>
+    <li><span data-lang="todo-11">בדיקת דרישות ויזה לאיטליה לאזרחי ישראל</span></li>
+    <li><span data-lang="todo-12">איתור חשבונית נפרדת לתמיר עם סבתא</span></li>
   </ul>
 </div>
 </section>
 
-<!-- ======== КОНТАКТЫ ======== -->
+<!-- ====== GALLERY ====== -->
+<section id="gallery">
+<h2><span class="sec-icon">📸</span> <span data-lang="gallery-title">גלריה</span></h2>
+
+<div class="gallery">
+  <div class="gallery-item">
+    <img src="https://images.unsplash.com/photo-1583422409516-2895a77efded?w=600&q=80"
+         alt="Barcelona" loading="lazy"
+         onerror="this.parentElement.style.display='none'">
+    <div class="caption">🇪🇸 <span data-lang="gal-1">ברצלונה — סגרדה פמיליה</span></div>
+  </div>
+  <div class="gallery-item">
+    <img src="https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?w=600&q=80"
+         alt="Cruise ship" loading="lazy"
+         onerror="this.parentElement.style.display='none'">
+    <div class="caption">🚢 <span data-lang="gal-2">אוניית קרוז בים התיכון</span></div>
+  </div>
+  <div class="gallery-item">
+    <img src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=600&q=80"
+         alt="Rome Colosseum" loading="lazy"
+         onerror="this.parentElement.style.display='none'">
+    <div class="caption">🇮🇹 <span data-lang="gal-3">רומא — קולוסיאום</span></div>
+  </div>
+  <div class="gallery-item">
+    <img src="https://images.unsplash.com/photo-1534445867742-43195f401b6c?w=600&q=80"
+         alt="Mallorca" loading="lazy"
+         onerror="this.parentElement.style.display='none'">
+    <div class="caption">🇪🇸 <span data-lang="gal-4">פלמה דה מיורקה</span></div>
+  </div>
+  <div class="gallery-item">
+    <img src="https://images.unsplash.com/photo-1516483638261-f4dbd038a8c8?w=600&q=80"
+         alt="Cinque Terre" loading="lazy"
+         onerror="this.parentElement.style.display='none'">
+    <div class="caption">🇮🇹 <span data-lang="gal-5">צ'ינקווה טרה (לה ספציה)</span></div>
+  </div>
+  <div class="gallery-item">
+    <img src="https://images.unsplash.com/photo-1559386484-97dfc0e15539?w=600&q=80"
+         alt="Mediterranean" loading="lazy"
+         onerror="this.parentElement.style.display='none'">
+    <div class="caption">🌊 <span data-lang="gal-6">הים התיכון</span></div>
+  </div>
+</div>
+</section>
+
+<!-- ====== CONTACTS ====== -->
 <section id="contacts">
-<h2>📞 Контакты</h2>
+<h2><span class="sec-icon">📞</span> <span data-lang="contacts-title">אנשי קשר</span></h2>
 
 <div class="contacts-grid">
   <div class="contact-card">
     <div class="name">✈️ El Al</div>
     <div class="detail">📞 972-3-9771111</div>
-    <div class="detail">🔗 booking.elal.com/manage/login</div>
+    <div class="detail">🔗 booking.elal.com</div>
   </div>
   <div class="contact-card">
-    <div class="name">🚢 Royal Caribbean (Израиль)</div>
+    <div class="name">🚢 Royal Caribbean</div>
     <div class="detail">📞 09-970-87-15</div>
     <div class="detail">🔗 royalcaribbean.com</div>
   </div>
   <div class="contact-card">
     <div class="name">🏨 Casp 74 Apartments</div>
-    <div class="detail">Бронь: 5304825645</div>
-    <div class="detail">Через Booking.com</div>
+    <div class="detail"><span data-lang="cont-booking">הזמנה: 5304825645</span></div>
+    <div class="detail">Booking.com</div>
   </div>
   <div class="contact-card">
-    <div class="name">🎫 Atlantida LLC (агент)</div>
+    <div class="name">🎫 Atlantida LLC</div>
     <div class="detail">Albert Berenshteyn</div>
     <div class="detail">📞 (213) 556-3500</div>
     <div class="detail">✉️ atlantida@cruiseticketcenters.com</div>
@@ -507,9 +727,402 @@ footer {
 </main>
 
 <footer>
-  Страница для семьи Гилядовых • Сентябрь 2026 • Создано Seg (Hermes Agent)<br>
-  <small>Данные из инвойсов и подтверждений. Проверять актуальность перед поездкой.</small>
+  <span data-lang="footer-1">עמוד למשפחת גיליאדוב • ספטמבר 2026</span><br>
+  <small data-lang="footer-2">נוצר על ידי Seg (Hermes Agent) • נתונים מחשבוניות ואישורים. יש לוודא עדכניות לפני הנסיעה.</small><br>
+  <small style="color:var(--border)">תמונות: Unsplash (חינמי). מפה: SVG.</small>
 </footer>
+
+<!-- ====== LANGUAGE DATA & SWITCHER SCRIPT ====== -->
+<script>
+const LANG = {
+  he: {
+    dir: 'rtl',
+    'hero-title': 'ברצלונה והקרוז במערב הים התיכון',
+    'hero-sub': 'חופשה משפחתית — משפחת גיליאדוב',
+    'nav-overview': 'סקירה',
+    'nav-map': 'מפת מסלול',
+    'nav-flights': 'טיסות',
+    'nav-hotel': 'מלון',
+    'nav-cruise': 'קרוז',
+    'nav-passengers': 'נוסעים',
+    'nav-cost': 'עלויות',
+    'nav-timeline': 'לוח זמנים',
+    'nav-todo': 'לעשות',
+    'nav-gallery': 'גלריה',
+    'nav-contacts': 'אנשי קשר',
+    'overview-title': 'סקירה כללית',
+    'ov-travelers': 'נוסעים',
+    'ov-days': 'ימים',
+    'ov-cost': 'עלות משוערת',
+    'ov-countries': 'מדינות',
+    'overview-text': '15 בספטמבר — טיסת אל על LY391 מתל אביב לברצלונה. 5 לילות בדירת Casp 74 במרכז העיר. 20 בספטמבר — עלייה על אוניית הקרוז Legend of the Seas של Royal Caribbean. 7 לילות בים התיכון: מיורקה, מרסיי, לה ספציה, רומא, נאפולי. חזרה לברצלונה ב-27 בספטמבר, טיסת ערב LY392 לתל אביב.',
+    'map-title': 'מפת מסלול הקרוז',
+    'flights-title': 'טיסות — אל על',
+    'flights-booking': 'הזמנה Z6R5X2',
+    'flights-th-flight': 'טיסה',
+    'flights-th-date': 'תאריך',
+    'flights-th-dep': 'המראה',
+    'flights-th-arr': 'נחיתה',
+    'flights-th-dur': 'משך',
+    'flights-fare': 'תעריף',
+    'flights-base': 'מחיר בסיס',
+    'flights-tax': 'מיסים ואגרות',
+    'flights-per-pax': 'לנוסע',
+    'flights-total': 'סה"כ 5 נוסעים',
+    'hotel-title': 'מלון — Casp 74 Apartments',
+    'hotel-booking': 'הזמנה Booking.com #5304825645',
+    'hotel-addr': 'כתובת',
+    'hotel-checkin': "צ'ק-אין",
+    'hotel-checkin-val': '15.09.2026 (אחרי 22:25 — נדרש תיאום צ\'ק-אין מאוחר)',
+    'hotel-checkout': "צ'ק-אאוט",
+    'hotel-checkout-val': '20.09.2026 (בוקר, הקרוז ב-17:00)',
+    'hotel-nights': 'לילות',
+    'hotel-paid': 'שולם',
+    'cruise-title': 'קרוז — Royal Caribbean Legend of the Seas',
+    'cruise-booking': 'הזמנה 6614073 • חשבונית #3007303',
+    'cruise-ship': 'אונייה',
+    'cruise-dep': 'יציאה',
+    'cruise-arr': 'חזרה',
+    'cruise-dur': 'משך',
+    'cruise-agent': 'סוכן',
+    'cruise-route-title': 'מסלול',
+    'cruise-cabin-title': 'תא',
+    'cruise-cabin-type': 'סוג',
+    'cruise-cabin-cat': 'קטגוריה',
+    'cruise-cabin-num': 'מספר',
+    'cruise-dinner': 'ארוחת ערב',
+    'pax-title': 'נוסעים',
+    'pax-flights': 'טיסות (5 אנשים) — הזמנה Z6R5X2',
+    'pax-name': 'שם',
+    'pax-status': 'סטטוס',
+    'pax-ticket': 'כרטיס',
+    'pax-cruise': 'קרוז (4 אנשים) — הזמנה 6614073',
+    'pax-dob': 'תאריך לידה',
+    'pax-nationality': 'אזרחות',
+    'pax-tamir-note': 'תמיר — על אותה אונייה עם סבתא. הזמנה נפרדת.',
+    'cost-title': 'עלויות',
+    'cost-flights': 'טיסות (5 × $579)',
+    'cost-hotel': 'מלון (5 לילות)',
+    'cost-cruise': 'קרוז (4 אנשים)',
+    'cost-invoice': 'פירוט קרוז — חשבונית #3007303',
+    'cost-desc': 'תיאור',
+    'cost-unit': "מחיר ליח'",
+    'cost-qty': 'כמות',
+    'cost-sum': 'סה"כ',
+    'cost-total': 'סה"כ',
+    'cost-payment': 'תשלום: Visa + MasterCard • 19 בינואר 2026',
+    'tl-title': 'לוח זמנים',
+    'tl-d1': "יום ג'",
+    'tl-t1': 'המראה TLV 17:45 → BCN 22:25. צ\'ק-אין במלון Casp 74.',
+    'tl-t2': 'ברצלונה — 4 ימים. סגרדה פמיליה, פארק גואל, הרובע הגותי, חופים.',
+    'tl-d3': "יום א'",
+    'tl-t3': "צ'ק-אאוט. 🚢 עלייה לאונייה Legend of the Seas. יציאה 17:00.",
+    'tl-t4': 'פלמה דה מיורקה — קתדרלה, עיר עתיקה, חופים.',
+    'tl-t5': 'מרסיי — הנמל הישן, בזיליקת נוטרדאם דה לה גארד.',
+    'tl-t6': "לה ספציה — שער לצ'ינקווה טרה.",
+    'tl-t7': "רומא (צ'יוויטווקיה) — קולוסיאום, ותיקן, מזרקות.",
+    'tl-t8': 'נאפולי — פומפיי, חוף אמאלפי, פיצה.',
+    'tl-t9': 'יום בים — מנוחה על האונייה.',
+    'tl-d10': "יום א'",
+    'tl-t10': 'הגעה BCN 05:00. ✈️ המראה BCN 23:35 → TLV.',
+    'tl-d11': "יום ב'",
+    'tl-t11': 'נחיתה TLV 03:40. בבית!',
+    'todo-title': 'מה עוד צריך לעשות',
+    'todo-important': 'חשוב',
+    'todo-needed': 'נדרש',
+    'todo-wanted': 'רצוי',
+    'todo-1': 'ביטוח נסיעות לכל המשפחה (בישראל)',
+    'todo-2': 'בדיקת תוקף דרכונים — לפחות עד מרץ 2027',
+    'todo-3': "צ'ק-אין מקוון ב-Royal Caribbean (7 ימים לפני)",
+    'todo-4': "הסעה משדה התעופה למלון (15.09, ~23:00)",
+    'todo-5': 'הסעה מהמלון לנמל (20.09, בוקר)',
+    'todo-6': "הסעה מהנמל לשדה התעופה (27.09)",
+    'todo-7': "תיאום צ'ק-אין מאוחר ב-Casp 74 (נחיתה 22:25)",
+    'todo-8': 'הזמנות מראש בקרוז: שתייה, אינטרנט, טיולים (עד 35% הנחה)',
+    'todo-9': 'אישור יציאה מהארץ לשירה (אם נדרש)',
+    'todo-10': 'התקנת אפליקציית Royal Caribbean',
+    'todo-11': 'בדיקת דרישות ויזה לאיטליה לאזרחי ישראל',
+    'todo-12': 'איתור חשבונית נפרדת לתמיר עם סבתא',
+    'gallery-title': 'גלריה',
+    'gal-1': 'ברצלונה — סגרדה פמיליה',
+    'gal-2': 'אוניית קרוז בים התיכון',
+    'gal-3': 'רומא — קולוסיאום',
+    'gal-4': 'פלמה דה מיורקה',
+    'gal-5': "צ'ינקווה טרה (לה ספציה)",
+    'gal-6': 'הים התיכון',
+    'contacts-title': 'אנשי קשר',
+    'cont-booking': 'הזמנה: 5304825645',
+    'footer-1': 'עמוד למשפחת גיליאדוב • ספטמבר 2026',
+    'footer-2': 'נוצר על ידי Seg (Hermes Agent) • נתונים מחשבוניות ואישורים. יש לוודא עדכניות לפני הנסיעה.'
+  },
+  ru: {
+    dir: 'ltr',
+    'hero-title': 'Барселона и Средиземноморский круиз',
+    'hero-sub': 'Семейный отдых — семья Гилядовых',
+    'nav-overview': 'Обзор',
+    'nav-map': 'Карта',
+    'nav-flights': 'Перелёты',
+    'nav-hotel': 'Отель',
+    'nav-cruise': 'Круиз',
+    'nav-passengers': 'Пассажиры',
+    'nav-cost': 'Стоимость',
+    'nav-timeline': 'Календарь',
+    'nav-todo': 'Сделать',
+    'nav-gallery': 'Галерея',
+    'nav-contacts': 'Контакты',
+    'overview-title': 'Обзор',
+    'ov-travelers': 'Путешественников',
+    'ov-days': 'Дней',
+    'ov-cost': 'Примерная стоимость',
+    'ov-countries': 'Страны',
+    'overview-text': '15 сентября — вылет El Al LY391 из Тель-Авива в Барселону. 5 ночей в апартаментах Casp 74 в центре города. 20 сентября — посадка на круизный лайнер Legend of the Seas (Royal Caribbean). 7 ночей по Средиземному морю: Майорка, Марсель, Ла Специя, Рим, Неаполь. Возвращение в Барселону 27 сентября, вечерний рейс LY392 в Тель-Авив.',
+    'map-title': 'Карта маршрута круиза',
+    'flights-title': 'Перелёты — El Al',
+    'flights-booking': 'Бронь Z6R5X2',
+    'flights-th-flight': 'Рейс',
+    'flights-th-date': 'Дата',
+    'flights-th-dep': 'Вылет',
+    'flights-th-arr': 'Прилёт',
+    'flights-th-dur': 'В пути',
+    'flights-fare': 'Тариф',
+    'flights-base': 'Базовая стоимость',
+    'flights-tax': 'Налоги и сборы',
+    'flights-per-pax': 'На пассажира',
+    'flights-total': 'На 5 пассажиров',
+    'hotel-title': 'Отель — Casp 74 Apartments',
+    'hotel-booking': 'Бронь Booking.com #5304825645',
+    'hotel-addr': 'Адрес',
+    'hotel-checkin': 'Заезд',
+    'hotel-checkin-val': '15.09.2026 (после 22:25 — уточнить late check-in)',
+    'hotel-checkout': 'Выезд',
+    'hotel-checkout-val': '20.09.2026 (утро, круиз в 17:00)',
+    'hotel-nights': 'Ночей',
+    'hotel-paid': 'Оплачено',
+    'cruise-title': 'Круиз — Royal Caribbean Legend of the Seas',
+    'cruise-booking': 'Бронь 6614073 • Инвойс #3007303',
+    'cruise-ship': 'Корабль',
+    'cruise-dep': 'Отправление',
+    'cruise-arr': 'Возвращение',
+    'cruise-dur': 'Длительность',
+    'cruise-agent': 'Агент',
+    'cruise-route-title': 'Маршрут',
+    'cruise-cabin-title': 'Каюта',
+    'cruise-cabin-type': 'Тип',
+    'cruise-cabin-cat': 'Категория',
+    'cruise-cabin-num': 'Номер',
+    'cruise-dinner': 'Ужин',
+    'pax-title': 'Пассажиры',
+    'pax-flights': 'Авиарейсы (5 человек) — бронь Z6R5X2',
+    'pax-name': 'Имя',
+    'pax-status': 'Статус',
+    'pax-ticket': 'Билет',
+    'pax-cruise': 'Круиз (4 человека) — бронь 6614073',
+    'pax-dob': 'Дата рождения',
+    'pax-nationality': 'Гражданство',
+    'pax-tamir-note': 'Тамир — на том же корабле с бабушкой. Отдельное бронирование.',
+    'cost-title': 'Стоимость',
+    'cost-flights': 'Авиабилеты (5 × $579)',
+    'cost-hotel': 'Отель (5 ночей)',
+    'cost-cruise': 'Круиз (4 чел.)',
+    'cost-invoice': 'Детали круиза — Инвойс #3007303',
+    'cost-desc': 'Описание',
+    'cost-unit': 'Цена за ед.',
+    'cost-qty': 'Кол-во',
+    'cost-sum': 'Сумма',
+    'cost-total': 'ИТОГО',
+    'cost-payment': 'Оплата: Visa + MasterCard • 19 января 2026',
+    'tl-title': 'Календарь поездки',
+    'tl-d1': 'вт',
+    'tl-t1': 'Вылет TLV 17:45 → BCN 22:25. Заселение в Casp 74.',
+    'tl-t2': 'Барселона — 4 дня. Саграда Фамилия, Парк Гуэль, Готический квартал, пляжи.',
+    'tl-d3': 'вс',
+    'tl-t3': 'Выезд из отеля. 🚢 Посадка на Legend of the Seas. Отправление 17:00.',
+    'tl-t4': 'Пальма-де-Майорка — собор, Старый город, пляжи.',
+    'tl-t5': 'Марсель — Старый порт, Нотр-Дам-де-ла-Гард.',
+    'tl-t6': 'Ла Специя — ворота в Чинкве-Терре.',
+    'tl-t7': 'Рим (Чивитавеккья) — Колизей, Ватикан, фонтаны.',
+    'tl-t8': 'Неаполь — Помпеи, Амальфитанское побережье, пицца.',
+    'tl-t9': 'День в море — отдых на корабле.',
+    'tl-d10': 'вс',
+    'tl-t10': 'Прибытие BCN 05:00. ✈️ Вылет BCN 23:35 → TLV.',
+    'tl-d11': 'пн',
+    'tl-t11': 'Прилёт TLV 03:40. Дома!',
+    'todo-title': 'Что нужно сделать',
+    'todo-important': 'Важно',
+    'todo-needed': 'Нужно',
+    'todo-wanted': 'Желательно',
+    'todo-1': 'Оформить туристическую страховку (Израиль)',
+    'todo-2': 'Проверить паспорта — срок до марта 2027',
+    'todo-3': 'Онлайн check-in на Royal Caribbean (за 7 дней)',
+    'todo-4': 'Трансфер аэропорт → отель (15.09, ~23:00)',
+    'todo-5': 'Трансфер отель → порт (20.09, утро)',
+    'todo-6': 'Трансфер порт → аэропорт (27.09)',
+    'todo-7': 'Уточнить late check-in в Casp 74 (прилёт 22:25)',
+    'todo-8': 'Предзаказ на круизе: напитки, интернет, экскурсии (до -35%)',
+    'todo-9': 'Разрешение на выезд Ширы (если требуется)',
+    'todo-10': 'Установить приложение Royal Caribbean',
+    'todo-11': 'Проверить визовые требования Италии',
+    'todo-12': 'Найти отдельный инвойс Тамира с бабушкой',
+    'gallery-title': 'Галерея',
+    'gal-1': 'Барселона — Саграда Фамилия',
+    'gal-2': 'Круизный лайнер в Средиземном море',
+    'gal-3': 'Рим — Колизей',
+    'gal-4': 'Пальма-де-Майорка',
+    'gal-5': 'Чинкве-Терре (Ла Специя)',
+    'gal-6': 'Средиземное море',
+    'contacts-title': 'Контакты',
+    'cont-booking': 'Бронь: 5304825645',
+    'footer-1': 'Страница для семьи Гилядовых • Сентябрь 2026',
+    'footer-2': 'Создано Seg (Hermes Agent) • Данные из инвойсов. Проверять актуальность перед поездкой.'
+  },
+  en: {
+    dir: 'ltr',
+    'hero-title': 'Barcelona & Mediterranean Cruise',
+    'hero-sub': 'Family Vacation — The Gilyadov Family',
+    'nav-overview': 'Overview',
+    'nav-map': 'Route Map',
+    'nav-flights': 'Flights',
+    'nav-hotel': 'Hotel',
+    'nav-cruise': 'Cruise',
+    'nav-passengers': 'Passengers',
+    'nav-cost': 'Cost',
+    'nav-timeline': 'Timeline',
+    'nav-todo': 'To-Do',
+    'nav-gallery': 'Gallery',
+    'nav-contacts': 'Contacts',
+    'overview-title': 'Overview',
+    'ov-travelers': 'Travelers',
+    'ov-days': 'Days',
+    'ov-cost': 'Est. Total Cost',
+    'ov-countries': 'Countries',
+    'overview-text': 'September 15 — El Al LY391 flight from Tel Aviv to Barcelona. 5 nights at Casp 74 Apartments in the city center. September 20 — boarding Royal Caribbean\'s Legend of the Seas. 7 nights across the Mediterranean: Mallorca, Marseille, La Spezia, Rome, Naples. Return to Barcelona on September 27, evening flight LY392 to Tel Aviv.',
+    'map-title': 'Cruise Route Map',
+    'flights-title': 'Flights — El Al',
+    'flights-booking': 'Booking Z6R5X2',
+    'flights-th-flight': 'Flight',
+    'flights-th-date': 'Date',
+    'flights-th-dep': 'Departure',
+    'flights-th-arr': 'Arrival',
+    'flights-th-dur': 'Duration',
+    'flights-fare': 'Fare',
+    'flights-base': 'Base fare',
+    'flights-tax': 'Taxes & fees',
+    'flights-per-pax': 'Per passenger',
+    'flights-total': 'Total (5 pax)',
+    'hotel-title': 'Hotel — Casp 74 Apartments',
+    'hotel-booking': 'Booking.com #5304825645',
+    'hotel-addr': 'Address',
+    'hotel-checkin': 'Check-in',
+    'hotel-checkin-val': 'Sep 15, 2026 (after 22:25 — confirm late check-in)',
+    'hotel-checkout': 'Check-out',
+    'hotel-checkout-val': 'Sep 20, 2026 (morning, cruise at 17:00)',
+    'hotel-nights': 'Nights',
+    'hotel-paid': 'Paid',
+    'cruise-title': 'Cruise — Royal Caribbean Legend of the Seas',
+    'cruise-booking': 'Booking 6614073 • Invoice #3007303',
+    'cruise-ship': 'Ship',
+    'cruise-dep': 'Departure',
+    'cruise-arr': 'Return',
+    'cruise-dur': 'Duration',
+    'cruise-agent': 'Agent',
+    'cruise-route-title': 'Route',
+    'cruise-cabin-title': 'Cabin',
+    'cruise-cabin-type': 'Type',
+    'cruise-cabin-cat': 'Category',
+    'cruise-cabin-num': 'Number',
+    'cruise-dinner': 'Dinner',
+    'pax-title': 'Passengers',
+    'pax-flights': 'Flights (5 people) — Booking Z6R5X2',
+    'pax-name': 'Name',
+    'pax-status': 'Status',
+    'pax-ticket': 'Ticket',
+    'pax-cruise': 'Cruise (4 people) — Booking 6614073',
+    'pax-dob': 'Date of Birth',
+    'pax-nationality': 'Nationality',
+    'pax-tamir-note': 'Tamir — same ship with grandmother. Separate booking.',
+    'cost-title': 'Cost',
+    'cost-flights': 'Flights (5 × $579)',
+    'cost-hotel': 'Hotel (5 nights)',
+    'cost-cruise': 'Cruise (4 pax)',
+    'cost-invoice': 'Cruise Details — Invoice #3007303',
+    'cost-desc': 'Description',
+    'cost-unit': 'Unit Price',
+    'cost-qty': 'Qty',
+    'cost-sum': 'Total',
+    'cost-total': 'TOTAL',
+    'cost-payment': 'Paid: Visa + MasterCard • Jan 19, 2026',
+    'tl-title': 'Trip Timeline',
+    'tl-d1': 'Tue',
+    'tl-t1': 'Departure TLV 17:45 → BCN 22:25. Check-in at Casp 74.',
+    'tl-t2': 'Barcelona — 4 days. Sagrada Familia, Park Güell, Gothic Quarter, beaches.',
+    'tl-d3': 'Sun',
+    'tl-t3': 'Hotel check-out. 🚢 Boarding Legend of the Seas. Departure 17:00.',
+    'tl-t4': 'Palma de Mallorca — Cathedral, Old Town, beaches.',
+    'tl-t5': 'Marseille — Old Port, Notre-Dame de la Garde.',
+    'tl-t6': 'La Spezia — gateway to Cinque Terre.',
+    'tl-t7': 'Rome (Civitavecchia) — Colosseum, Vatican, fountains.',
+    'tl-t8': 'Naples — Pompeii, Amalfi Coast, pizza.',
+    'tl-t9': 'Day at sea — relaxing on the ship.',
+    'tl-d10': 'Sun',
+    'tl-t10': 'Arrival BCN 05:00. ✈️ Departure BCN 23:35 → TLV.',
+    'tl-d11': 'Mon',
+    'tl-t11': 'Arrival TLV 03:40. Home!',
+    'todo-title': 'What Still Needs to Be Done',
+    'todo-important': 'Important',
+    'todo-needed': 'Required',
+    'todo-wanted': 'Nice to have',
+    'todo-1': 'Purchase travel insurance for everyone (Israel)',
+    'todo-2': 'Check passport validity — at least until March 2027',
+    'todo-3': 'Online check-in with Royal Caribbean (7 days before)',
+    'todo-4': 'Transfer: airport → hotel (Sep 15, ~23:00)',
+    'todo-5': 'Transfer: hotel → cruise port (Sep 20, morning)',
+    'todo-6': 'Transfer: cruise port → airport (Sep 27)',
+    'todo-7': 'Confirm late check-in at Casp 74 (arrival 22:25)',
+    'todo-8': 'Pre-book cruise extras: drinks, internet, excursions (up to 35% off)',
+    'todo-9': 'Exit permit for Shira (if required)',
+    'todo-10': 'Install Royal Caribbean app',
+    'todo-11': 'Check Italy visa requirements for Israelis',
+    'todo-12': 'Find Tamir & grandmother separate invoice',
+    'gallery-title': 'Gallery',
+    'gal-1': 'Barcelona — Sagrada Familia',
+    'gal-2': 'Cruise ship in the Mediterranean',
+    'gal-3': 'Rome — Colosseum',
+    'gal-4': 'Palma de Mallorca',
+    'gal-5': 'Cinque Terre (La Spezia)',
+    'gal-6': 'The Mediterranean Sea',
+    'contacts-title': 'Contacts',
+    'cont-booking': 'Booking: 5304825645',
+    'footer-1': 'Page for the Gilyadov family • September 2026',
+    'footer-2': 'Created by Seg (Hermes Agent) • Data from invoices & confirmations. Verify before travel.'
+  }
+};
+
+function switchLang(lang) {
+  // Update buttons
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('btn-' + lang).classList.add('active');
+
+  // Update direction
+  const dir = LANG[lang].dir;
+  document.documentElement.dir = dir;
+  document.documentElement.lang = lang;
+
+  // Update all data-lang elements
+  document.querySelectorAll('[data-lang]').forEach(el => {
+    const key = el.getAttribute('data-lang');
+    if (LANG[lang][key]) {
+      el.textContent = LANG[lang][key];
+    }
+  });
+
+  // Save preference
+  localStorage.setItem('bcn-trip-lang', lang);
+}
+
+// Init from saved preference or default to Hebrew
+const saved = localStorage.getItem('bcn-trip-lang') || 'he';
+switchLang(saved);
+</script>
 
 </body>
 </html>
