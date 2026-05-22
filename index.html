@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Барселона & Круиз — Сентябрь 2026</title>
+<style>
+:root {
+  --bg: #0d1117;
+  --surface: #161b22;
+  --border: #30363d;
+  --text: #e6edf3;
+  --muted: #8b949e;
+  --accent: #58a6ff;
+  --green: #3fb950;
+  --orange: #d2991d;
+  --red: #f78166;
+  --purple: #a371f7;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 1.5rem;
+  position: sticky; top: 0; z-index: 100;
+}
+header h1 { font-size: 1.4rem; color: var(--accent); }
+header p { font-size: 0.85rem; color: var(--muted); margin-top: 0.2rem; }
+nav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 1.5rem;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+nav a {
+  display: inline-block;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s;
+}
+nav a:hover, nav a.active { color: var(--text); border-bottom-color: var(--accent); }
+main { max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem; }
+section { margin-bottom: 3rem; padding-top: 0.5rem; }
+section h2 {
+  font-size: 1.25rem;
+  color: var(--accent);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.2rem;
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+.card h3 { font-size: 1rem; margin-bottom: 0.8rem; color: var(--text); }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+th, td {
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+th { color: var(--muted); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; }
+td { color: var(--text); }
+.row-total { font-weight: 700; }
+.row-total td { border-top: 2px solid var(--accent); color: var(--green); }
+.tag {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+.tag-green { background: rgba(63,185,80,0.15); color: var(--green); }
+.tag-orange { background: rgba(210,153,29,0.15); color: var(--orange); }
+.tag-purple { background: rgba(163,113,247,0.15); color: var(--purple); }
+.tag-red { background: rgba(247,129,102,0.15); color: var(--red); }
+
+.route-flow {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem;
+  margin: 1rem 0;
+}
+.route-stop {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.5rem 0.8rem;
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+.route-arrow { color: var(--accent); font-size: 1rem; font-weight: bold; }
+
+.timeline { border-left: 2px solid var(--border); margin-left: 0.5rem; padding-left: 1.5rem; }
+.timeline-item { margin-bottom: 1.2rem; position: relative; }
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -1.9rem; top: 0.35rem;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.timeline-date { font-size: 0.78rem; color: var(--muted); }
+.timeline-text { font-size: 0.9rem; }
+
+.todo-list { list-style: none; }
+.todo-list li {
+  padding: 0.4rem 0;
+  font-size: 0.88rem;
+  display: flex; align-items: flex-start; gap: 0.5rem;
+}
+.todo-list li::before { content: '⬜'; font-size: 0.85rem; flex-shrink: 0; }
+
+.contacts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+.contact-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.2rem;
+}
+.contact-card .name { font-weight: 600; margin-bottom: 0.3rem; }
+.contact-card .detail { font-size: 0.82rem; color: var(--muted); }
+
+.cost-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.cost-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.2rem;
+  text-align: center;
+}
+.cost-card .amount { font-size: 1.5rem; font-weight: 700; color: var(--green); }
+.cost-card .label { font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; }
+
+.pax-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.pax-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+}
+.pax-card .icon { font-size: 2rem; margin-bottom: 0.3rem; }
+.pax-card .name { font-weight: 600; font-size: 0.95rem; }
+.pax-card .info { font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem; }
+
+footer {
+  text-align: center;
+  padding: 2rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  border-top: 1px solid var(--border);
+  margin-top: 2rem;
+}
+.responsive-note { display: none; }
+@media (max-width: 600px) {
+  header h1 { font-size: 1.1rem; }
+  main { padding: 1rem; }
+  nav { padding: 0 0.5rem; }
+  nav a { padding: 0.6rem 0.5rem; font-size: 0.78rem; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🛳️ Барселона & Средиземноморский круиз</h1>
+  <p>Семейная поездка семьи Гилядовых • 15–28 сентября 2026</p>
+</header>
+
+<nav>
+  <a href="#overview">Обзор</a>
+  <a href="#flights">Перелёты</a>
+  <a href="#hotel">Отель</a>
+  <a href="#cruise">Круиз</a>
+  <a href="#passengers">Пассажиры</a>
+  <a href="#cost">Стоимость</a>
+  <a href="#timeline">Календарь</a>
+  <a href="#todo">Что нужно</a>
+  <a href="#contacts">Контакты</a>
+</nav>
+
+<main>
+
+<!-- ======== ОБЗОР ======== -->
+<section id="overview">
+<h2>📋 Обзор поездки</h2>
+
+<div class="cost-summary">
+  <div class="cost-card">
+    <div class="amount">5 чел.</div>
+    <div class="label">Путешественников</div>
+  </div>
+  <div class="cost-card">
+    <div class="amount">13 дней</div>
+    <div class="label">Общая длительность</div>
+  </div>
+  <div class="cost-card">
+    <div class="amount">$8,177</div>
+    <div class="label">Примерно общая стоимость</div>
+  </div>
+  <div class="cost-card">
+    <div class="amount">3 страны</div>
+    <div class="label">Испания · Франция · Италия</div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>Кратко</h3>
+  <p style="color:var(--muted); font-size:0.9rem;">
+    15 сентября вылетаем из Тель-Авива в Барселону рейсом El Al LY391.
+    5 ночей в апартаментах Casp 74 в центре Барселоны.
+    20 сентября — посадка на круизный лайнер Royal Caribbean Legend of the Seas.
+    7 ночей по Средиземному морю: Майорка, Марсель, Ла Специя, Рим, Неаполь.
+    Возвращение в Барселону 27 сентября, вечерний рейс LY392 в Тель-Авив.
+  </p>
+</div>
+</section>
+
+<!-- ======== ПЕРЕЛЁТЫ ======== -->
+<section id="flights">
+<h2>✈️ Авиаперелёты — El Al</h2>
+
+<div class="card">
+  <h3>Бронь Z6R5X2 <span class="tag tag-green">Оплачено</span></h3>
+  <table>
+    <tr><th>Рейс</th><td><strong>LY 391</strong> • TLV → BCN</td><td><strong>LY 392</strong> • BCN → TLV</td></tr>
+    <tr><th>Дата</th><td>15 сентября 2026 (вт)</td><td>27 сентября 2026 (вс)</td></tr>
+    <tr><th>Вылет</th><td>17:45 • Тель-Авив</td><td>23:35 • Барселона</td></tr>
+    <tr><th>Прилёт</th><td>22:25 • Барселона</td><td>03:40 (+1) • Тель-Авив</td></tr>
+    <tr><th>В пути</th><td>4ч 40м</td><td>4ч 05м</td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <h3>Тариф</h3>
+  <table>
+    <tr><th>Базовая стоимость</th><td>$514.00</td></tr>
+    <tr><th>Налоги и сборы</th><td>$65.47</td></tr>
+    <tr class="row-total"><th>На пассажира</th><td>$579.47</td></tr>
+    <tr class="row-total"><th>На 5 человек</th><td>$2,897.35</td></tr>
+  </table>
+</div>
+</section>
+
+<!-- ======== ОТЕЛЬ ======== -->
+<section id="hotel">
+<h2>🏨 Отель — Casp 74 Apartments</h2>
+
+<div class="card">
+  <h3>Бронь Booking.com #5304825645 <span class="tag tag-green">Оплачено</span></h3>
+  <table>
+    <tr><th>Адрес</th><td>Casp, 74, Barcelona 08010, Испания</td></tr>
+    <tr><th>Заезд</th><td>15 сентября 2026 (после 22:25 — уточнить late check-in)</td></tr>
+    <tr><th>Выезд</th><td>20 сентября 2026 (утро, круиз в 17:00)</td></tr>
+    <tr><th>Ночей</th><td>5</td></tr>
+    <tr class="row-total"><th>Оплачено</th><td>€1,546.34 (19 января 2026)</td></tr>
+  </table>
+</div>
+</section>
+
+<!-- ======== КРУИЗ ======== -->
+<section id="cruise">
+<h2>🚢 Круиз — Royal Caribbean Legend of the Seas</h2>
+
+<div class="card">
+  <h3>Бронь 6614073 • Инвойс #3007303 <span class="tag tag-green">PAID IN FULL</span></h3>
+  <table>
+    <tr><th>Корабль</th><td>Legend of the Seas</td></tr>
+    <tr><th>Отправление</th><td>20 сентября 2026, 17:00 — Барселона</td></tr>
+    <tr><th>Возвращение</th><td>27 сентября 2026, 05:00 — Барселона</td></tr>
+    <tr><th>Длительность</th><td>7 ночей</td></tr>
+    <tr><th>Агент</th><td>Atlantida LLC • Albert Berenshteyn</td></tr>
+    <tr><th>Member ID</th><td>396146236 (Crown & Anchor)</td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <h3>🗺️ Маршрут</h3>
+  <div class="route-flow">
+    <div class="route-stop">🇪🇸 Барселона<br><small>отправление</small></div>
+    <div class="route-arrow">→</div>
+    <div class="route-stop">🇪🇸 Пальма-де-Майорка</div>
+    <div class="route-arrow">→</div>
+    <div class="route-stop">🇫🇷 Марсель</div>
+    <div class="route-arrow">→</div>
+    <div class="route-stop">🇮🇹 Ла Специя</div>
+    <div class="route-arrow">→</div>
+    <div class="route-stop">🇮🇹 Рим<br><small>Чивитавеккья</small></div>
+    <div class="route-arrow">→</div>
+    <div class="route-stop">🇮🇹 Неаполь</div>
+    <div class="route-arrow">→</div>
+    <div class="route-stop">🇪🇸 Барселона<br><small>возвращение</small></div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>🛏️ Каюта</h3>
+  <table>
+    <tr><th>Тип</th><td>Ocean View Balcony Quad Gty</td></tr>
+    <tr><th>Категория</th><td>XQ</td></tr>
+    <tr><th>Номер</th><td><span class="tag tag-orange">GTY — назначается при чекине</span></td></tr>
+    <tr><th>Ужин</th><td>17:30 (ранняя смена)</td></tr>
+    <tr><th>Onboard Credit</th><td>$50.00</td></tr>
+  </table>
+</div>
+</section>
+
+<!-- ======== ПАССАЖИРЫ ======== -->
+<section id="passengers">
+<h2>👨‍👩‍👧‍👦 Пассажиры</h2>
+
+<div class="card">
+  <h3>Авиарейсы (5 человек) — бронь Z6R5X2</h3>
+  <table>
+    <tr><th>#</th><th>Имя</th><th>Статус</th><th>Номер билета</th></tr>
+    <tr><td>1</td><td>Gregory Gilyadov</td><td><span class="tag tag-green">ADT</span></td><td>1142493483652</td></tr>
+    <tr><td>2</td><td>Tami Frida Gilyadov</td><td><span class="tag tag-green">ADT</span></td><td>1142493483653</td></tr>
+    <tr><td>3</td><td>Gilad Gilyadov</td><td><span class="tag tag-green">ADT</span></td><td>1142493483654</td></tr>
+    <tr><td>4</td><td>Shira Gilyadov</td><td><span class="tag tag-purple">CHD</span></td><td>1142493483651</td></tr>
+    <tr><td>5</td><td>Tamir Gilyadov</td><td><span class="tag tag-green">ADT</span></td><td>1142493483650</td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <h3>Круиз (4 человека) — бронь 6614073</h3>
+  <table>
+    <tr><th>#</th><th>Имя</th><th>Дата рождения</th><th>Гражданство</th></tr>
+    <tr><td>1</td><td>Mr Gregory Gilyadov</td><td>29.09.1975</td><td>🇮🇱 Израиль</td></tr>
+    <tr><td>2</td><td>Mrs Tami Frida Gilyadov</td><td>20.11.1985</td><td>🇮🇱 Израиль</td></tr>
+    <tr><td>3</td><td>Mr Gilad Gilyadov</td><td>08.12.2007</td><td>🇮🇱 Израиль</td></tr>
+    <tr><td>4</td><td>Miss Shira Gilyadov</td><td>25.04.2016</td><td>🇮🇱 Израиль</td></tr>
+  </table>
+  <p style="margin-top:0.8rem; font-size:0.82rem; color:var(--muted);">
+    ⚠️ <strong>Тамир</strong> — на том же корабле с бабушкой. Отдельное бронирование.
+  </p>
+</div>
+</section>
+
+<!-- ======== СТОИМОСТЬ ======== -->
+<section id="cost">
+<h2>💰 Стоимость</h2>
+
+<div class="cost-summary">
+  <div class="cost-card">
+    <div class="amount">$2,897</div>
+    <div class="label">Авиабилеты (5 чел. × $579)</div>
+  </div>
+  <div class="cost-card">
+    <div class="amount">€1,546</div>
+    <div class="label">Отель (5 ночей)</div>
+  </div>
+  <div class="cost-card">
+    <div class="amount">$5,280</div>
+    <div class="label">Круиз (4 чел.)</div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>Детали круиза — Инвойс #3007303</h3>
+  <table>
+    <tr><th>#</th><th>Описание</th><th>Цена за ед.</th><th>Кол-во</th><th>Сумма</th></tr>
+    <tr><td>1</td><td>Cruise Rate</td><td>$3,341.00</td><td>1</td><td>$3,341.00</td></tr>
+    <tr><td>2</td><td>Cruise Rate</td><td>$1,456.00</td><td>1</td><td>$1,456.00</td></tr>
+    <tr><td>3</td><td>Government Fees</td><td>$133.42</td><td>4</td><td>$533.68</td></tr>
+    <tr><td>4</td><td>Agency Discount</td><td>-$25.34</td><td>2</td><td>-$50.68</td></tr>
+    <tr class="row-total"><td colspan="4">ИТОГО</td><td>$5,280.00</td></tr>
+  </table>
+  <p style="margin-top:0.8rem; font-size:0.82rem; color:var(--muted);">
+    Оплата: Visa (...9289) $1,000 + MasterCard (...8180) $4,280 • 19 января 2026
+  </p>
+</div>
+</section>
+
+<!-- ======== КАЛЕНДАРЬ ======== -->
+<section id="timeline">
+<h2>📅 Календарь поездки</h2>
+
+<div class="timeline">
+  <div class="timeline-item">
+    <div class="timeline-date">15 сентября • вторник</div>
+    <div class="timeline-text">✈️ Вылет TLV 17:45 → BCN 22:25. Заселение в Casp 74.</div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">16–19 сентября</div>
+    <div class="timeline-text">🏙️ Барселона — 4 полных дня. Саграда Фамилия, Парк Гуэль, Готический квартал, пляжи.</div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">20 сентября • воскресенье</div>
+    <div class="timeline-text">🏨 Выезд из отеля. 🚢 Посадка на Legend of the Seas. Отправление 17:00.</div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">21 сентября</div>
+    <div class="timeline-text">🇪🇸 Пальма-де-Майорка — собор, Старый город, пляжи.</div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">22 сентября</div>
+    <div class="timeline-text">🇫🇷 Марсель — Старый порт, базилика Нотр-Дам-де-ла-Гард.</div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">23 сентября</div>
+    <div class="timeline-text">🇮🇹 Ла Специя — ворота в Чинкве-Терре.</div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">24 сентября</div>
+    <div class="timeline-text">🇮🇹 Рим (Чивитавеккья) — Колизей, Ватикан, фонтаны.</div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">25 сентября</div>
+    <div class="timeline-text">🇮🇹 Неаполь — Помпеи, Амальфитанское побережье, пицца.</div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">26 сентября</div>
+    <div class="timeline-text">🌊 День в море — отдых на корабле.</div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">27 сентября • воскресенье</div>
+    <div class="timeline-text">🚢 Прибытие BCN 05:00. ✈️ Вылет BCN 23:35 → TLV.</div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">28 сентября • понедельник</div>
+    <div class="timeline-text">🏠 Прилёт TLV 03:40. Дома!</div>
+  </div>
+</div>
+</section>
+
+<!-- ======== TO-DO ======== -->
+<section id="todo">
+<h2>✅ Что ещё нужно сделать</h2>
+
+<div class="card">
+  <ul class="todo-list">
+    <li><span class="tag tag-red">Важно</span> Оформить туристическую страховку для всех (Израиль)</li>
+    <li><span class="tag tag-red">Важно</span> Проверить паспорта — срок действия минимум до марта 2027</li>
+    <li><span class="tag tag-red">Важно</span> Онлайн check-in на Royal Caribbean (за 7 дней до круиза)</li>
+    <li><span class="tag tag-orange">Нужно</span> Трансфер аэропорт Барселоны → отель (15 сен, ~23:00)</li>
+    <li><span class="tag tag-orange">Нужно</span> Трансфер отель → порт (20 сен, утро)</li>
+    <li><span class="tag tag-orange">Нужно</span> Трансфер порт → аэропорт (27 сен)</li>
+    <li><span class="tag tag-orange">Нужно</span> Уточнить late check-in в Casp 74 (прилёт 22:25)</li>
+    <li><span class="tag tag-purple">Желательно</span> Предзаказ на круизе: напитки, интернет, экскурсии (до -35%)</li>
+    <li><span class="tag tag-purple">Желательно</span> Разрешение на выезд Ширы (если требуется)</li>
+    <li>Установить приложение Royal Caribbean</li>
+    <li>Проверить визовые требования Италии для израильтян</li>
+    <li>Найти отдельный инвойс Тамира с бабушкой</li>
+  </ul>
+</div>
+</section>
+
+<!-- ======== КОНТАКТЫ ======== -->
+<section id="contacts">
+<h2>📞 Контакты</h2>
+
+<div class="contacts-grid">
+  <div class="contact-card">
+    <div class="name">✈️ El Al</div>
+    <div class="detail">📞 972-3-9771111</div>
+    <div class="detail">🔗 booking.elal.com/manage/login</div>
+  </div>
+  <div class="contact-card">
+    <div class="name">🚢 Royal Caribbean (Израиль)</div>
+    <div class="detail">📞 09-970-87-15</div>
+    <div class="detail">🔗 royalcaribbean.com</div>
+  </div>
+  <div class="contact-card">
+    <div class="name">🏨 Casp 74 Apartments</div>
+    <div class="detail">Бронь: 5304825645</div>
+    <div class="detail">Через Booking.com</div>
+  </div>
+  <div class="contact-card">
+    <div class="name">🎫 Atlantida LLC (агент)</div>
+    <div class="detail">Albert Berenshteyn</div>
+    <div class="detail">📞 (213) 556-3500</div>
+    <div class="detail">✉️ atlantida@cruiseticketcenters.com</div>
+  </div>
+</div>
+</section>
+
+</main>
+
+<footer>
+  Страница для семьи Гилядовых • Сентябрь 2026 • Создано Seg (Hermes Agent)<br>
+  <small>Данные из инвойсов и подтверждений. Проверять актуальность перед поездкой.</small>
+</footer>
+
+</body>
+</html>
