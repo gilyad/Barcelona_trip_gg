@@ -246,9 +246,41 @@ footer {
   nav a { padding: 0.6rem 0.5rem; font-size: 0.75rem; }
   .lang-bar { padding: 0.4rem 0.5rem; }
 }
+
+/* Password Gate */
+#app { display: none; }
+#app.unlocked { display: block; }
+.pw-gate {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: 100vh; background: var(--bg); gap: 1.2rem; padding: 2rem;
+}
+.pw-gate.hidden { display: none; }
+.pw-gate .lock-icon { font-size: 3rem; }
+.pw-gate h2 { font-size: 1.2rem; color: var(--text); font-weight: 600; }
+.pw-gate p { font-size: 0.85rem; color: var(--muted); }
+.pw-gate input {
+  background: var(--surface); border: 1px solid var(--border); color: var(--text);
+  padding: 0.7rem 1.2rem; border-radius: 8px; font-size: 1rem; width: 240px;
+  text-align: center; outline: none; transition: border-color 0.2s;
+}
+.pw-gate input:focus { border-color: var(--accent); }
+.pw-gate .pw-error { color: var(--red); font-size: 0.8rem; display: none; }
+.pw-gate .pw-error.show { display: block; }
 </style>
 </head>
 <body>
+
+<!-- ====== PASSWORD GATE ====== -->
+<div class="pw-gate" id="pwGate">
+  <div class="lock-icon">🔒</div>
+  <h2 data-lang="pw-title">גישה מוגבלת</h2>
+  <p data-lang="pw-sub">הזן סיסמה לצפייה באתר</p>
+  <input type="password" id="pwInput" placeholder="••••••••" autofocus>
+  <div class="pw-error" id="pwError" data-lang="pw-error">סיסמה שגויה</div>
+</div>
+
+<!-- ====== APP CONTENT ====== -->
+<div id="app">
 
 <!-- ====== LANGUAGE SWITCHER ====== -->
 <div class="lang-bar">
@@ -279,7 +311,6 @@ footer {
   <a href="#hotel" data-lang="nav-hotel">מלון</a>
   <a href="#cruise" data-lang="nav-cruise">קרוז</a>
   <a href="#passengers" data-lang="nav-passengers">נוסעים</a>
-  <a href="#cost" data-lang="nav-cost">עלויות</a>
   <a href="#timeline" data-lang="nav-timeline">לוח זמנים</a>
   <a href="#todo" data-lang="nav-todo">לעשות</a>
   <a href="#gallery" data-lang="nav-gallery">גלריה</a>
@@ -295,8 +326,8 @@ footer {
 <div class="cost-summary">
   <div class="cost-card"><div class="icon">👨‍👩‍👧‍👦</div><div class="amount">5</div><div class="label" data-lang="ov-travelers">נוסעים</div></div>
   <div class="cost-card"><div class="icon">📅</div><div class="amount">13</div><div class="label" data-lang="ov-days">ימים</div></div>
-  <div class="cost-card"><div class="icon">💰</div><div class="amount">~$8,200</div><div class="label" data-lang="ov-cost">עלות משוערת</div></div>
   <div class="cost-card"><div class="icon">🌍</div><div class="amount">3</div><div class="label" data-lang="ov-countries">מדינות</div></div>
+  <div class="cost-card"><div class="icon">✅</div><div class="amount"><span data-lang="ov-confirmed">הכל</span></div><div class="label" data-lang="ov-booked">הוזמן</div></div>
 </div>
 
 <div class="card">
@@ -444,17 +475,6 @@ footer {
     <tr><th data-lang="flights-th-arr">נחיתה</th><td>22:25 • ברצלונה</td><td>03:40 (+1) • תל אביב</td></tr>
     <tr><th data-lang="flights-th-dur">משך</th><td>4ש 40ד</td><td>4ש 05ד</td></tr>
   </table>
-</div>
-
-<div class="card">
-  <h3 data-lang="flights-fare">תעריף</h3>
-  <table>
-    <tr><th data-lang="flights-base">מחיר בסיס</th><td>$514.00</td></tr>
-    <tr><th data-lang="flights-tax">מיסים ואגרות</th><td>$65.47</td></tr>
-    <tr class="row-total"><th data-lang="flights-per-pax">לנוסע</th><td>$579.47</td></tr>
-    <tr class="row-total"><th data-lang="flights-total">סה"כ 5 נוסעים</th><td>$2,897.35</td></tr>
-  </table>
-</div>
 </section>
 
 <!-- ====== HOTEL ====== -->
@@ -468,7 +488,7 @@ footer {
     <tr><th data-lang="hotel-checkin">צ'ק-אין</th><td data-lang="hotel-checkin-val">15.09.2026 (אחרי 22:25 — נדרש תיאום צ'ק-אין מאוחר)</td></tr>
     <tr><th data-lang="hotel-checkout">צ'ק-אאוט</th><td data-lang="hotel-checkout-val">20.09.2026 (בוקר, הקרוז ב-17:00)</td></tr>
     <tr><th data-lang="hotel-nights">לילות</th><td>5</td></tr>
-    <tr class="row-total"><th data-lang="hotel-paid">שולם</th><td>€1,546.34</td></tr>
+    <tr class="row-total"><th data-lang="hotel-paid">שולם</th><td><span class="tag tag-green">✓</span></td></tr>
   </table>
 </div>
 </section>
@@ -547,32 +567,6 @@ footer {
   </table>
   <p style="margin-top:0.8rem; font-size:0.82rem; color:var(--muted);">
     ⚠️ <strong data-lang="pax-tamir-note">תמיר — על אותה אונייה עם סבתא. הזמנה נפרדת.</strong>
-  </p>
-</div>
-</section>
-
-<!-- ====== COST ====== -->
-<section id="cost">
-<h2><span class="sec-icon">💰</span> <span data-lang="cost-title">עלויות</span></h2>
-
-<div class="cost-summary">
-  <div class="cost-card"><div class="icon">✈️</div><div class="amount">$2,897</div><div class="label" data-lang="cost-flights">טיסות (5 × $579)</div></div>
-  <div class="cost-card"><div class="icon">🏨</div><div class="amount">€1,546</div><div class="label" data-lang="cost-hotel">מלון (5 לילות)</div></div>
-  <div class="cost-card"><div class="icon">🚢</div><div class="amount">$5,280</div><div class="label" data-lang="cost-cruise">קרוז (4 אנשים)</div></div>
-</div>
-
-<div class="card">
-  <h3 data-lang="cost-invoice">פירוט קרוז — חשבונית #3007303</h3>
-  <table>
-    <tr><th>#</th><th data-lang="cost-desc">תיאור</th><th data-lang="cost-unit">מחיר ליח'</th><th data-lang="cost-qty">כמות</th><th data-lang="cost-sum">סה"כ</th></tr>
-    <tr><td>1</td><td>Cruise Rate</td><td>$3,341.00</td><td>1</td><td>$3,341.00</td></tr>
-    <tr><td>2</td><td>Cruise Rate</td><td>$1,456.00</td><td>1</td><td>$1,456.00</td></tr>
-    <tr><td>3</td><td>Government Fees</td><td>$133.42</td><td>4</td><td>$533.68</td></tr>
-    <tr><td>4</td><td>Agency Discount</td><td>-$25.34</td><td>2</td><td>-$50.68</td></tr>
-    <tr class="row-total"><td colspan="4" data-lang="cost-total">סה"כ</td><td>$5,280.00</td></tr>
-  </table>
-  <p style="margin-top:0.8rem; font-size:0.82rem; color:var(--muted);">
-    <span data-lang="cost-payment">תשלום: Visa + MasterCard • 19 בינואר 2026</span>
   </p>
 </div>
 </section>
@@ -753,7 +747,8 @@ const LANG = {
     'overview-title': 'סקירה כללית',
     'ov-travelers': 'נוסעים',
     'ov-days': 'ימים',
-    'ov-cost': 'עלות משוערת',
+    'ov-confirmed': 'הכל',
+    'ov-booked': 'הוזמן',
     'ov-countries': 'מדינות',
     'overview-text': '15 בספטמבר — טיסת אל על LY391 מתל אביב לברצלונה. 5 לילות בדירת Casp 74 במרכז העיר. 20 בספטמבר — עלייה על אוניית הקרוז Legend of the Seas של Royal Caribbean. 7 לילות בים התיכון: מיורקה, מרסיי, לה ספציה, רומא, נאפולי. חזרה לברצלונה ב-27 בספטמבר, טיסת ערב LY392 לתל אביב.',
     'map-title': 'מפת מסלול הקרוז',
@@ -853,7 +848,10 @@ const LANG = {
     'contacts-title': 'אנשי קשר',
     'cont-booking': 'הזמנה: 5304825645',
     'footer-1': 'עמוד למשפחת גיליאדוב • ספטמבר 2026',
-    'footer-2': 'נוצר על ידי Seg (Hermes Agent) • נתונים מחשבוניות ואישורים. יש לוודא עדכניות לפני הנסיעה.'
+    'footer-2': 'נוצר על ידי Seg (Hermes Agent) • נתונים מחשבוניות ואישורים. יש לוודא עדכניות לפני הנסיעה.',
+    'pw-title': 'גישה מוגבלת',
+    'pw-sub': 'הזן סיסמה לצפייה באתר',
+    'pw-error': 'סיסמה שגויה'
   },
   ru: {
     dir: 'ltr',
@@ -873,7 +871,8 @@ const LANG = {
     'overview-title': 'Обзор',
     'ov-travelers': 'Путешественников',
     'ov-days': 'Дней',
-    'ov-cost': 'Примерная стоимость',
+    'ov-confirmed': 'Всё',
+    'ov-booked': 'Заказано',
     'ov-countries': 'Страны',
     'overview-text': '15 сентября — вылет El Al LY391 из Тель-Авива в Барселону. 5 ночей в апартаментах Casp 74 в центре города. 20 сентября — посадка на круизный лайнер Legend of the Seas (Royal Caribbean). 7 ночей по Средиземному морю: Майорка, Марсель, Ла Специя, Рим, Неаполь. Возвращение в Барселону 27 сентября, вечерний рейс LY392 в Тель-Авив.',
     'map-title': 'Карта маршрута круиза',
@@ -973,7 +972,10 @@ const LANG = {
     'contacts-title': 'Контакты',
     'cont-booking': 'Бронь: 5304825645',
     'footer-1': 'Страница для семьи Гилядовых • Сентябрь 2026',
-    'footer-2': 'Создано Seg (Hermes Agent) • Данные из инвойсов. Проверять актуальность перед поездкой.'
+    'footer-2': 'Создано Seg (Hermes Agent) • Данные из инвойсов. Проверять актуальность перед поездкой.',
+    'pw-title': 'Доступ ограничен',
+    'pw-sub': 'Введите пароль для просмотра',
+    'pw-error': 'Неверный пароль'
   },
   en: {
     dir: 'ltr',
@@ -993,7 +995,8 @@ const LANG = {
     'overview-title': 'Overview',
     'ov-travelers': 'Travelers',
     'ov-days': 'Days',
-    'ov-cost': 'Est. Total Cost',
+    'ov-confirmed': 'All',
+    'ov-booked': 'Booked',
     'ov-countries': 'Countries',
     'overview-text': 'September 15 — El Al LY391 flight from Tel Aviv to Barcelona. 5 nights at Casp 74 Apartments in the city center. September 20 — boarding Royal Caribbean\'s Legend of the Seas. 7 nights across the Mediterranean: Mallorca, Marseille, La Spezia, Rome, Naples. Return to Barcelona on September 27, evening flight LY392 to Tel Aviv.',
     'map-title': 'Cruise Route Map',
@@ -1093,7 +1096,10 @@ const LANG = {
     'contacts-title': 'Contacts',
     'cont-booking': 'Booking: 5304825645',
     'footer-1': 'Page for the Gilyadov family • September 2026',
-    'footer-2': 'Created by Seg (Hermes Agent) • Data from invoices & confirmations. Verify before travel.'
+    'footer-2': 'Created by Seg (Hermes Agent) • Data from invoices & confirmations. Verify before travel.',
+    'pw-title': 'Restricted Access',
+    'pw-sub': 'Enter password to view',
+    'pw-error': 'Wrong password'
   }
 };
 
@@ -1122,6 +1128,34 @@ function switchLang(lang) {
 // Init from saved preference or default to Hebrew
 const saved = localStorage.getItem('bcn-trip-lang') || 'he';
 switchLang(saved);
+</script>
+
+</div><!-- /#app -->
+
+<!-- ====== PASSWORD SCRIPT ====== -->
+<script>
+(function() {
+  const PW = 'barcelona';
+  if (sessionStorage.getItem('bcn-auth') === PW) {
+    document.getElementById('pwGate').classList.add('hidden');
+    document.getElementById('app').classList.add('unlocked');
+  }
+})();
+document.getElementById('pwInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    const v = this.value.trim();
+    if (v === 'barcelona') {
+      sessionStorage.setItem('bcn-auth', v);
+      document.getElementById('pwGate').classList.add('hidden');
+      document.getElementById('app').classList.add('unlocked');
+      document.getElementById('pwError').classList.remove('show');
+    } else {
+      document.getElementById('pwError').classList.add('show');
+      this.value = '';
+      this.focus();
+    }
+  }
+});
 </script>
 
 </body>
