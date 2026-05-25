@@ -220,32 +220,12 @@ td { color: var(--text); }
 }
 .route-arrow { color: var(--accent); font-size: 1.1rem; font-weight: bold; }
 
-/* SVG Map */
+/* Map */
 .map-container {
   background: var(--surface); border: 1px solid var(--border);
   border-radius: 12px; padding: 0; margin-bottom: 1rem;
   overflow: hidden; position: relative;
-}
-.map-container svg { max-width: 100%; height: auto; }
-#cruise-map { width: 100%; height: 450px; }
-.gm-info-panel {
-  position: absolute; top: 12px; left: 12px; z-index: 10;
-  background: rgba(255,255,255,0.92);
-  padding: 12px 14px; border-radius: 10px;
-  border: 1px solid var(--border);
-  max-width: 250px; font-size: 0.85rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-.gm-info-panel h3 {
-  margin: 0 0 8px 0; font-size: 1rem; color: #1a3a5c;
-}
-.gm-stop { padding: 2px 0; color: var(--text-secondary); }
-.gm-stop:first-of-type { color: var(--accent); font-weight: 600; }
-.gm-api-note {
-  position: absolute; bottom: 12px; left: 12px; z-index: 10;
-  background: rgba(255,255,255,0.9); color: var(--gold);
-  padding: 6px 12px; border-radius: 6px; font-size: 0.8rem;
-  border: 1px solid var(--border);
+  text-align: center;
 }
 
 /* Gallery */
@@ -394,98 +374,9 @@ footer p { margin: 0.15rem 0; }
 <h2><span class="sec-icon">🗺️</span> <span data-lang="map-title">מפת מסלול הקרוז</span></h2>
 
 <div class="map-container" style="position:relative;">
-  <div class="gm-info-panel">
-    <h3>🛳️ מסלול הקרוז</h3>
-    <div class="gm-stop">🇪🇸 ברצלונה — יציאה</div>
-    <div class="gm-stop">→ 🇪🇸 פלמה דה מיורקה</div>
-    <div class="gm-stop">→ 🇫🇷 מרסיי</div>
-    <div class="gm-stop">→ 🇮🇹 לה ספציה</div>
-    <div class="gm-stop">→ 🇮🇹 רומא / צ'יוויטווקיה</div>
-    <div class="gm-stop">→ 🇮🇹 נאפולי</div>
-    <div class="gm-stop">→ 🇪🇸 ברצלונה — חזרה</div>
-  </div>
-  <div id="cruise-map"></div>
-  <div class="gm-api-note" id="gmApiNote">ℹ️ מפה אינטראקטיבית — נדרש Google Maps API Key</div>
+  <img src="cruise-map.jpg" alt="Cruise Route Map" style="width:100%; max-width:800px; height:auto; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.1);" id="cruise-map-img">
 </div>
 </section>
-
-<script>
-(function() {
-  var cruiseRoute = [
-    { name: 'ברצלונה', city: 'Barcelona', pos: { lat: 41.3851, lng: 2.1734 }, country: '🇪🇸',
-      img: 'https://images.unsplash.com/photo-1583779457094-ab6f916fac6b?w=300&q=80',
-      attr: 'Sagrada Família' },
-    { name: 'פלמה דה מיורקה', city: 'Palma de Mallorca', pos: { lat: 39.5696, lng: 2.6502 }, country: '🇪🇸',
-      img: 'https://images.unsplash.com/photo-1590080877188-65d3f5cda2a6?w=300&q=80',
-      attr: 'Palma Cathedral' },
-    { name: 'מרסיי', city: 'Marseille', pos: { lat: 43.2965, lng: 5.3698 }, country: '🇫🇷',
-      img: 'https://images.unsplash.com/photo-1599501887769-a7a6e1d51805?w=300&q=80',
-      attr: 'Notre-Dame de la Garde' },
-    { name: 'לה ספציה', city: 'La Spezia', pos: { lat: 44.1025, lng: 9.8241 }, country: '🇮🇹',
-      img: 'https://images.unsplash.com/photo-1534519270891-5c685bcead72?w=300&q=80',
-      attr: 'Cinque Terre' },
-    { name: 'רומא', city: 'Rome', pos: { lat: 42.0932, lng: 11.7957 }, country: '🇮🇹',
-      img: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=300&q=80',
-      attr: 'Colosseum' },
-    { name: 'נאפולי', city: 'Naples', pos: { lat: 40.8518, lng: 14.2681 }, country: '🇮🇹',
-      img: 'https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?w=300&q=80',
-      attr: 'Vesuvius & Amalfi' },
-    { name: 'ברצלונה (חזרה)', city: 'Barcelona Return', pos: { lat: 41.3851, lng: 2.1734 }, country: '🇪🇸',
-      img: 'https://images.unsplash.com/photo-1583422409516-2895a77efded?w=300&q=80',
-      attr: 'Park Güell' }
-  ];
-
-  window.initCruiseMap = function() {
-    var mapEl = document.getElementById('cruise-map');
-    if (!mapEl) return;
-    var map = new google.maps.Map(mapEl, {
-      zoom: 5,
-      center: { lat: 41.5, lng: 8 },
-      mapTypeId: 'terrain',
-      styles: [
-        { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#c8e6f5' }] },
-        { featureType: 'landscape', elementType: 'geometry', stylers: [{ color: '#f5f0e8' }] }
-      ]
-    });
-    var pathCoords = [];
-    var infoWindow = new google.maps.InfoWindow({ maxWidth: 260 });
-    cruiseRoute.forEach(function(stop, i) {
-      pathCoords.push(stop.pos);
-      var marker = new google.maps.Marker({
-        position: stop.pos, map: map, title: stop.name,
-        label: { text: String(i + 1), color: '#fff', fontWeight: 'bold' },
-        icon: {
-          path: google.maps.SymbolPath.CIRCLE,
-          fillColor: i === 0 ? '#e67e22' : '#1a73e8',
-          fillOpacity: 1, strokeColor: '#fff', strokeWeight: 2,
-          scale: 10
-        },
-        animation: google.maps.Animation.DROP
-      });
-      marker.addListener('click', (function(m, s) {
-        return function() {
-          infoWindow.setContent(
-            '<div style="font-family:sans-serif;max-width:240px;">' +
-            '<img src="' + s.img + '" style="width:100%;height:120px;object-fit:cover;border-radius:6px;margin-bottom:6px" ' +
-            'onerror="this.style.display=\'none\'">' +
-            '<strong style="font-size:14px">' + s.country + ' ' + s.name + '</strong><br>' +
-            '<span style="font-size:11px;color:#666">' + s.attr + '</span><br>' +
-            '<span style="font-size:11px;color:#999">עצירה №' + (i + 1) + '</span>' +
-            '</div>'
-          );
-          infoWindow.open(map, m);
-        };
-      })(marker, stop));
-    });
-    new google.maps.Polyline({
-      path: pathCoords, geodesic: true,
-      strokeColor: '#1a73e8', strokeOpacity: 0.9, strokeWeight: 4
-    }).setMap(map);
-    var note = document.getElementById('gmApiNote');
-    if (note) note.style.display = 'none';
-  };
-})();
-</script>
 
 <!-- ====== FLIGHTS ====== -->
 <section id="flights">
@@ -1183,6 +1074,5 @@ document.getElementById('pwInput').addEventListener('keydown', function(e) {
 });
 </script>
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFnDh-Z5So-5pcDSa4IzokNqQmQZNecCo&callback=initCruiseMap"></script>
 </body>
 </html>
